@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-label="AI learning lab bundle">
+  <rect width="1200" height="820" fill="#f7f7f5"/>
+  <rect x="155" y="150" width="890" height="500" rx="42" fill="#09090b"/>
+  <circle cx="600" cy="395" r="170" fill="#f97316" opacity=".16"/>
+  <path d="M430 395 C430 302 506 226 600 226 C694 226 770 302 770 395 C770 489 694 565 600 565 C506 565 430 489 430 395Z" fill="none" stroke="#f97316" stroke-width="8"/>
+  <path d="M505 395 h190 M600 300 v190 M535 330 C610 390 610 410 535 460 M665 330 C590 390 590 410 665 460" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+  <g fill="#1f2937" stroke="#64748b" stroke-width="3">
+    <rect x="230" y="265" width="160" height="100" rx="12"/>
+    <rect x="810" y="265" width="160" height="100" rx="12"/>
+    <rect x="230" y="455" width="160" height="100" rx="12"/>
+    <rect x="810" y="455" width="160" height="100" rx="12"/>
+  </g>
+  <text x="95" y="105" font-family="Inter,Arial,sans-serif" font-size="38" font-weight="800" fill="#111111">AI Learning Lab Bundles</text>
+  <text x="95" y="150" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="600" fill="#6b7280">Configured for AI literacy, coding and cloud tools</text>
+</svg>

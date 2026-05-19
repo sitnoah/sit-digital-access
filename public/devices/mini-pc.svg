@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-label="Mini PC">
+  <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#111111"/><stop offset="1" stop-color="#3f3f46"/></linearGradient></defs>
+  <rect width="1200" height="820" fill="#f8fafc"/>
+  <circle cx="222" cy="645" r="220" fill="#f97316" opacity=".10"/>
+  <circle cx="968" cy="180" r="240" fill="#111111" opacity=".06"/>
+  <rect x="265" y="280" width="670" height="280" rx="42" fill="url(#g)"/>
+  <path d="M315 555 h570 l95 72 H220z" fill="#09090b" opacity=".94"/>
+  <rect x="330" y="340" width="310" height="34" rx="17" fill="#f97316"/>
+  <rect x="330" y="410" width="220" height="18" rx="9" fill="#fff" opacity=".18"/>
+  <rect x="720" y="340" width="54" height="54" rx="16" fill="#27272a" stroke="#52525b"/>
+  <rect x="802" y="340" width="54" height="54" rx="16" fill="#27272a" stroke="#52525b"/>
+  <circle cx="748" cy="482" r="24" fill="#f97316"/>
+  <rect x="802" y="466" width="88" height="32" rx="16" fill="#52525b"/>
+  <text x="95" y="105" font-family="Inter,Arial,sans-serif" font-size="38" font-weight="800" fill="#111111">Mini PCs</text>
+  <text x="95" y="150" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="600" fill="#6b7280">Compact low-power classroom and office devices</text>
+</svg>

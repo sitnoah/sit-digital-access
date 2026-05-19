@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Learner using refurbished laptop">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#111"/><stop offset="1" stop-color="#f97316"/></linearGradient>
+    <linearGradient id="screen" x1="0" x2="1"><stop stop-color="#f8fafc"/><stop offset="1" stop-color="#dff7ea"/></linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="945" cy="140" r="180" fill="#fff" opacity=".1"/>
+  <rect x="180" y="180" width="840" height="460" rx="36" fill="#fff" opacity=".12"/>
+  <rect x="315" y="250" width="570" height="330" rx="24" fill="#111"/>
+  <rect x="345" y="280" width="510" height="260" rx="16" fill="url(#screen)"/>
+  <rect x="260" y="600" width="680" height="42" rx="18" fill="#f8fafc"/>
+  <path d="M410 370h150v24H410zm0 48h250v24H410zm0 48h190v24H410z" fill="#f97316"/>
+  <circle cx="760" cy="405" r="70" fill="#16a34a" opacity=".78"/>
+</svg>

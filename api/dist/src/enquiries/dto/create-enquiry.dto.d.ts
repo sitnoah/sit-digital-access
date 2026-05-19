@@ -1,0 +1,31 @@
+import { EnquiryPriority, EnquiryType } from "../enquiry.enums";
+export declare class CreateEnquiryDto {
+    fullName: string;
+    organisation?: string;
+    email: string;
+    phone?: string;
+    country: string;
+    enquiryType: EnquiryType;
+    message: string;
+    priority?: EnquiryPriority;
+    organisationType?: string;
+    deploymentScale?: string;
+    estimatedLearnerCount?: number;
+    powerAvailability?: string;
+    connectivityProfile?: string;
+    timeline?: string;
+    deviceQuantity?: number;
+    preferredDeviceCategory?: string;
+    preferredPackage?: string;
+    classroomCount?: number;
+    powerConnectivityNotes?: string;
+    programmeSlug?: string;
+    serviceSlug?: string;
+    learnerCount?: number;
+    deploymentRegion?: string;
+    trainingRequirement?: string;
+    deviceRequirement?: string;
+    deviceCategories?: string[];
+    supportModelRequired?: string;
+    deploymentLocation?: string;
+}

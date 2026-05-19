@@ -1,0 +1,43 @@
+<svg width="512" height="512" viewBox="70 45 420 390" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logo-title">
+  <title id="logo-title">SIT Digital Access logo</title>
+  <defs>
+    <linearGradient id="orange" x1="115" y1="146" x2="382" y2="370" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF9300"/>
+      <stop offset="0.52" stop-color="#FF6A00"/>
+      <stop offset="1" stop-color="#FF3600"/>
+    </linearGradient>
+    <linearGradient id="orange-soft" x1="350" y1="72" x2="472" y2="208" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8A00"/>
+      <stop offset="1" stop-color="#FF4100"/>
+    </linearGradient>
+    <linearGradient id="base" x1="92" y1="314" x2="379" y2="417" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2B2C2F"/>
+      <stop offset="0.58" stop-color="#17181B"/>
+      <stop offset="1" stop-color="#050505"/>
+    </linearGradient>
+    <filter id="mark-shadow" x="54" y="45" width="430" height="405" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000000" flood-opacity="0.38"/>
+    </filter>
+    <clipPath id="body-clip">
+      <path d="M99 224C99 174.8 138.8 135 188 135H334C343.4 135 351 142.6 351 152V179C351 187.3 357.7 194 366 194H389C398.4 194 406 201.6 406 211V286C406 334.6 366.6 374 318 374H99V224Z"/>
+    </clipPath>
+  </defs>
+
+  <g filter="url(#mark-shadow)">
+    <path d="M103 316C130 383 234 413 327 382C372 367 399 339 403 306L397 356C392 399 338 428 265 424C185 421 114 386 93 340C84 321 88 313 103 316Z" fill="url(#base)"/>
+    <path d="M99 224C99 174.8 138.8 135 188 135H334C343.4 135 351 142.6 351 152V179C351 187.3 357.7 194 366 194H389C398.4 194 406 201.6 406 211V286C406 334.6 366.6 374 318 374H99V224Z" fill="url(#orange)"/>
+
+    <g clip-path="url(#body-clip)">
+      <text x="119" y="316" fill="white" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="154" font-weight="900" letter-spacing="-12">SIT</text>
+    </g>
+
+    <path d="M83 300C121 358 237 380 371 306C321 354 238 385 163 371C119 363 88 341 80 314C78 306 78 302 83 300Z" fill="white"/>
+    <path d="M84 316C109 354 177 370 260 354C179 384 107 362 77 327C74 323 77 318 84 316Z" fill="#FF5A00"/>
+
+    <path d="M342 113H363C369.6 113 375 118.4 375 125V146C375 152.6 369.6 158 363 158H342C335.4 158 330 152.6 330 146V125C330 118.4 335.4 113 342 113Z" fill="url(#orange-soft)"/>
+    <path d="M376 83H416C422.6 83 428 88.4 428 95V135C428 141.6 422.6 147 416 147H376C369.4 147 364 141.6 364 135V95C364 88.4 369.4 83 376 83Z" fill="url(#orange-soft)"/>
+    <path d="M437 54H468C474.6 54 480 59.4 480 66V97C480 103.6 474.6 109 468 109H437C430.4 109 425 103.6 425 97V66C425 59.4 430.4 54 437 54Z" fill="url(#orange-soft)"/>
+    <path d="M423 150H454C460.6 150 466 155.4 466 162V193C466 199.6 460.6 205 454 205H423C416.4 205 411 199.6 411 193V162C411 155.4 416.4 150 423 150Z" fill="url(#orange-soft)"/>
+    <path d="M377 197H399C405.6 197 411 202.4 411 209V231C411 237.6 405.6 243 399 243H377C370.4 243 365 237.6 365 231V209C365 202.4 370.4 197 377 197Z" fill="url(#orange-soft)"/>
+  </g>
+</svg>

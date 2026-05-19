@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-label="All-in-one PC">
+  <rect width="1200" height="820" fill="#f7f7f5"/>
+  <rect x="198" y="132" width="804" height="510" rx="34" fill="#111111"/>
+  <rect x="238" y="174" width="724" height="386" rx="16" fill="#172033"/>
+  <path d="M290 458 C392 398 452 468 555 388 C668 300 765 350 912 248" fill="none" stroke="#f97316" stroke-width="9" stroke-linecap="round"/>
+  <rect x="536" y="642" width="128" height="65" fill="#9ca3af"/>
+  <rect x="410" y="704" width="380" height="36" rx="18" fill="#6b7280"/>
+  <rect x="312" y="226" width="190" height="26" rx="13" fill="#fff" opacity=".22"/>
+  <rect x="312" y="285" width="330" height="16" rx="8" fill="#fff" opacity=".18"/>
+  <text x="95" y="105" font-family="Inter,Arial,sans-serif" font-size="38" font-weight="800" fill="#111111">All-in-One PCs</text>
+  <text x="95" y="150" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="600" fill="#6b7280">Clean desk setups for classrooms and offices</text>
+</svg>

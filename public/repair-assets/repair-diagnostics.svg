@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Repair diagnostics workstation">
+  <defs><linearGradient id="a" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#090909"/><stop offset=".55" stop-color="#1f2937"/><stop offset="1" stop-color="#f97316"/></linearGradient></defs>
+  <rect width="1200" height="800" fill="url(#a)"/>
+  <rect x="150" y="170" width="900" height="460" rx="36" fill="#fff" opacity=".1"/>
+  <rect x="240" y="260" width="360" height="250" rx="24" fill="#fff"/>
+  <rect x="650" y="230" width="290" height="300" rx="24" fill="#111"/>
+  <path d="M285 330h220m-220 58h170m-170 58h250" stroke="#f97316" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="795" cy="380" r="86" fill="#16a34a"/>
+  <path d="M758 383l28 28 58-72" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-label="Computer lab bundle">
+  <rect width="1200" height="820" fill="#f8fafc"/>
+  <rect x="96" y="148" width="1008" height="470" rx="36" fill="#111111"/>
+  <rect x="138" y="190" width="924" height="386" rx="22" fill="#1f2937"/>
+  <g fill="#0f172a" stroke="#64748b" stroke-width="4">
+    <rect x="190" y="258" width="200" height="128" rx="12"/>
+    <rect x="500" y="258" width="200" height="128" rx="12"/>
+    <rect x="810" y="258" width="200" height="128" rx="12"/>
+    <rect x="344" y="424" width="200" height="128" rx="12"/>
+    <rect x="654" y="424" width="200" height="128" rx="12"/>
+  </g>
+  <g stroke="#f97316" stroke-width="4" fill="none">
+    <path d="M290 322 h310 h310"/>
+    <path d="M600 322 v166 h-156"/>
+    <path d="M600 488 h154"/>
+  </g>
+  <circle cx="600" cy="322" r="18" fill="#f97316"/>
+  <text x="95" y="105" font-family="Inter,Arial,sans-serif" font-size="38" font-weight="800" fill="#111111">Computer Lab Bundles</text>
+  <text x="95" y="150" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="600" fill="#6b7280">Room-ready device, network and support packages</text>
+</svg>
