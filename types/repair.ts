@@ -227,10 +227,16 @@ export type AdminRepairTechnician = {
   id: string;
   name?: string | null;
   email?: string | null;
+  role?: string | null;
   status?: string | null;
   skills?: unknown[];
   certifications?: unknown[];
   availability?: string | null;
+  activeJobs?: number | null;
+  completedJobs?: number | null;
+  slaRisk?: number | null;
+  location?: string | null;
+  rating?: number | null;
   workload?: number | null;
   completionRate?: number | null;
   createdAt?: string;

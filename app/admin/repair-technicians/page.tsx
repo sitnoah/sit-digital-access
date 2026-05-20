@@ -1,5 +1,7 @@
-import { AdminRepairWorkspace } from "@/components/admin/admin-repair-workspace";
+"use client";
+
+import { AdminRepairTechniciansPage as RepairTechniciansWorkspace } from "@/components/admin/admin-repair-technicians-page";
 
 export default function AdminRepairTechniciansPage() {
-  return <AdminRepairWorkspace initialView="technicians" />;
+  return <RepairTechniciansWorkspace />;
 }

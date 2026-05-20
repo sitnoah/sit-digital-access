@@ -19,7 +19,7 @@ const adminNav = [
   { label: "Repairs", href: "/admin/repairs", icon: "wrench", badge: "Ops" },
   { label: "Repair Queue", href: "/admin/repair-queue", icon: "list" },
   { label: "Repair Parts", href: "/admin/repair-parts", icon: "hardDrive" },
-  { label: "Technicians", href: "/admin/repair-technicians", icon: "users" },
+  { label: "Technicians", href: "/admin/repair-technicians", icon: "users", section: "Ops", badge: "Ops" },
   { label: "Recycling", href: "/admin/recycling", icon: "recycle" },
   { label: "Support", href: "/admin/support", icon: "headset" },
   { label: "Impact", href: "/admin/impact", icon: "leaf" },

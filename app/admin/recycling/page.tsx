@@ -1,5 +1,5 @@
-import { AdminRecyclingOperationalPage } from "@/components/admin/operations/admin-operations-pages";
+import { AdminRecyclingWorkspace } from "@/components/admin/admin-recycling-workspace";
 
 export default function AdminRecyclingPage() {
-  return <AdminRecyclingOperationalPage />;
+  return <AdminRecyclingWorkspace />;
 }

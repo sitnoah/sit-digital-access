@@ -18,6 +18,7 @@ exports.COLLECTIONS = {
     auditLogs: "auditLogs",
     deployments: "deployments",
     recycling: "recycling",
+    recyclingPartners: "recyclingPartners",
     supportTickets: "supportTickets",
     repairTickets: "repairTickets",
     repairParts: "repairParts",

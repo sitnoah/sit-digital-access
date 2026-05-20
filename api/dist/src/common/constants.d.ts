@@ -15,6 +15,7 @@ export declare const COLLECTIONS: {
     readonly auditLogs: "auditLogs";
     readonly deployments: "deployments";
     readonly recycling: "recycling";
+    readonly recyclingPartners: "recyclingPartners";
     readonly supportTickets: "supportTickets";
     readonly repairTickets: "repairTickets";
     readonly repairParts: "repairParts";

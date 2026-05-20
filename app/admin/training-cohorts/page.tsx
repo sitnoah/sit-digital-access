@@ -1,5 +1,5 @@
-import { AdminTrainingOperationalPage } from "@/components/admin/operations/admin-operations-pages";
+import { AdminTrainingCohortsWorkspace } from "@/components/admin/admin-training-cohorts-workspace";
 
 export default function AdminTrainingCohortsPage() {
-  return <AdminTrainingOperationalPage />;
+  return <AdminTrainingCohortsWorkspace />;
 }

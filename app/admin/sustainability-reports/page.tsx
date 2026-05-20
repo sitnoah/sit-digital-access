@@ -1,5 +1,5 @@
-import { AdminSustainabilityReportsPage } from "@/components/admin/operations/admin-operations-pages";
+import { AdminSustainabilityReportsWorkspace } from "@/components/admin/admin-sustainability-reports-workspace";
 
 export default function AdminSustainabilityReportsRoute() {
-  return <AdminSustainabilityReportsPage />;
+  return <AdminSustainabilityReportsWorkspace />;
 }

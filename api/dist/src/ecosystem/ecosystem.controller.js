@@ -73,25 +73,70 @@ let EcosystemController = class EcosystemController {
         return { data: await this.ecosystemService.createDeploymentFromDeviceRequest(id, dto, request) };
     }
     async listRecycling() {
-        return { data: await this.ecosystemService.list("recycling") };
+        return { data: await this.ecosystemService.listRecyclingOperations() };
     }
     async createRecycling(dto, request) {
-        return { data: await this.ecosystemService.create("recycling", dto, request) };
+        return { data: await this.ecosystemService.createRecyclingRecord(dto, request) };
     }
     async updateRecycling(id, dto, request) {
-        return { data: await this.ecosystemService.update("recycling", id, dto, request) };
+        return { data: await this.ecosystemService.updateRecyclingRecord(id, dto, request) };
+    }
+    async uploadRecyclingAttachment(id, file, dto, request) {
+        return { data: await this.ecosystemService.uploadRecyclingAttachment(id, file, dto, request) };
+    }
+    async recommendRecyclingRoute(id, request) {
+        return { data: await this.ecosystemService.recommendRecyclingRoute(id, request) };
+    }
+    async generateRecyclingReportPack(id, dto, request) {
+        return { data: await this.ecosystemService.generateRecyclingReportPack(id, dto, request) };
+    }
+    async listRecyclingPartners() {
+        return { data: await this.ecosystemService.list("recyclingPartners") };
+    }
+    async createRecyclingPartner(dto, request) {
+        return { data: await this.ecosystemService.create("recyclingPartners", dto, request) };
+    }
+    async updateRecyclingPartner(id, dto, request) {
+        return { data: await this.ecosystemService.update("recyclingPartners", id, dto, request) };
     }
     async scheduleCollection(id, dto, request) {
         return { data: await this.ecosystemService.scheduleCollection(id, dto, request) };
     }
+    async listSupport() {
+        return { data: await this.ecosystemService.listSupportOperations() };
+    }
+    async createSupport(dto, request) {
+        return { data: await this.ecosystemService.createSupportTicketRecord(dto, request) };
+    }
+    async getSupport(id) {
+        return { data: await this.ecosystemService.getSupportTicket(id) };
+    }
+    async updateSupport(id, dto, request) {
+        return { data: await this.ecosystemService.updateSupportTicketRecord(id, dto, request) };
+    }
+    async assignSupport(id, dto, request) {
+        return { data: await this.ecosystemService.assignSupportTicket(id, dto, request) };
+    }
+    async escalateSupport(id, dto, request) {
+        return { data: await this.ecosystemService.escalateSupportTicket(id, dto, request) };
+    }
+    async closeSupport(id, dto, request) {
+        return { data: await this.ecosystemService.closeSupportTicket(id, dto, request) };
+    }
+    async linkSupportRecord(id, dto, request) {
+        return { data: await this.ecosystemService.linkSupportRecord(id, dto, request) };
+    }
     async listSupportTickets() {
-        return { data: await this.ecosystemService.list("supportTickets") };
+        return { data: await this.ecosystemService.listSupportOperations() };
     }
     async createSupportTicket(dto, request) {
-        return { data: await this.ecosystemService.create("supportTickets", dto, request) };
+        return { data: await this.ecosystemService.createSupportTicketRecord(dto, request) };
+    }
+    async getSupportTicket(id) {
+        return { data: await this.ecosystemService.getSupportTicket(id) };
     }
     async updateSupportTicket(id, dto, request) {
-        return { data: await this.ecosystemService.update("supportTickets", id, dto, request) };
+        return { data: await this.ecosystemService.updateSupportTicketRecord(id, dto, request) };
     }
     async createSupportTicketFromInventory(id, dto, request) {
         return { data: await this.ecosystemService.createSupportTicketFromInventory(id, dto, request) };
@@ -160,16 +205,22 @@ let EcosystemController = class EcosystemController {
         return { data: await this.ecosystemService.deleteSavedView(id, request) };
     }
     async listSuccessStories() {
-        return { data: await this.ecosystemService.list("successStories") };
+        return { data: await this.ecosystemService.listSuccessStoryOperations() };
     }
     async createSuccessStory(dto, request) {
-        return { data: await this.ecosystemService.create("successStories", dto, request) };
+        return { data: await this.ecosystemService.createSuccessStoryRecord(dto, request) };
     }
     async seedSuccessStories(request) {
         return { data: await this.ecosystemService.seedDefaultStories(request) };
     }
+    async generateSuccessStoryDraft(dto, request) {
+        return { data: await this.ecosystemService.generateSuccessStoryDraft(dto, request) };
+    }
     async updateSuccessStory(id, dto, request) {
-        return { data: await this.ecosystemService.update("successStories", id, dto, request) };
+        return { data: await this.ecosystemService.updateSuccessStoryRecord(id, dto, request) };
+    }
+    async deleteSuccessStory(id, request) {
+        return { data: await this.ecosystemService.deleteSuccessStory(id, request) };
     }
     async publishSuccessStory(id, request) {
         return { data: await this.ecosystemService.publishStory(id, true, request) };
@@ -177,23 +228,53 @@ let EcosystemController = class EcosystemController {
     async unpublishSuccessStory(id, request) {
         return { data: await this.ecosystemService.publishStory(id, false, request) };
     }
+    async featureSuccessStory(id, request) {
+        return { data: await this.ecosystemService.featureStory(id, true, request) };
+    }
     async listTrainingCohorts() {
-        return { data: await this.ecosystemService.list("trainingCohorts") };
+        return { data: await this.ecosystemService.listTrainingCohortOperations() };
     }
     async createTrainingCohort(dto, request) {
-        return { data: await this.ecosystemService.create("trainingCohorts", dto, request) };
+        return { data: await this.ecosystemService.createTrainingCohortRecord(dto, request) };
+    }
+    async importTrainingLearners(id, file, request) {
+        return { data: await this.ecosystemService.importTrainingLearners(id, file, request) };
+    }
+    async generateTrainingCertificates(id, request) {
+        return { data: await this.ecosystemService.generateTrainingCertificates(id, request) };
+    }
+    async markTrainingCohortActive(id, request) {
+        return { data: await this.ecosystemService.markTrainingCohortActive(id, request) };
+    }
+    async completeTrainingCohort(id, request) {
+        return { data: await this.ecosystemService.completeTrainingCohort(id, request) };
+    }
+    async exportTrainingRegister(id) {
+        return { data: await this.ecosystemService.exportTrainingRegister(id) };
+    }
+    async getTrainingCohort(id) {
+        return { data: await this.ecosystemService.getTrainingCohort(id) };
     }
     async updateTrainingCohort(id, dto, request) {
-        return { data: await this.ecosystemService.update("trainingCohorts", id, dto, request) };
+        return { data: await this.ecosystemService.updateTrainingCohortRecord(id, dto, request) };
     }
     async listSustainabilityReports() {
-        return { data: await this.ecosystemService.list("sustainabilityReports") };
+        return { data: await this.ecosystemService.listSustainabilityReportOperations() };
     }
     async createSustainabilityReport(dto, request) {
         return { data: await this.ecosystemService.create("sustainabilityReports", dto, request) };
     }
     async generateSustainabilityReport(dto, request) {
         return { data: await this.ecosystemService.generateSustainabilityReport(dto, request) };
+    }
+    async exportSustainabilityReportPdf(id) {
+        return { data: await this.ecosystemService.exportSustainabilityReport(id, "pdf") };
+    }
+    async exportSustainabilityReportCsv(id) {
+        return { data: await this.ecosystemService.exportSustainabilityReport(id, "csv") };
+    }
+    async getSustainabilityReport(id) {
+        return { data: await this.ecosystemService.getSustainabilityReport(id) };
     }
 };
 exports.EcosystemController = EcosystemController;
@@ -332,6 +413,69 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], EcosystemController.prototype, "updateRecycling", null);
 __decorate([
+    (0, common_1.Post)("admin/recycling/:id/attachments"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)("file")),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.UploadedFile)()),
+    __param(2, (0, common_1.Body)()),
+    __param(3, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, ecosystem_record_dto_1.EcosystemRecordDto, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "uploadRecyclingAttachment", null);
+__decorate([
+    (0, common_1.Post)("admin/recycling/:id/recommendation"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "recommendRecyclingRoute", null);
+__decorate([
+    (0, common_1.Post)("admin/recycling/:id/report-pack"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, ecosystem_record_dto_1.EcosystemRecordDto, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "generateRecyclingReportPack", null);
+__decorate([
+    (0, common_1.Get)("admin/recycling-partners"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "listRecyclingPartners", null);
+__decorate([
+    (0, common_1.Post)("admin/recycling-partners"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [ecosystem_record_dto_1.EcosystemRecordDto, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "createRecyclingPartner", null);
+__decorate([
+    (0, common_1.Patch)("admin/recycling-partners/:id"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, ecosystem_record_dto_1.EcosystemRecordDto, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "updateRecyclingPartner", null);
+__decorate([
     (0, common_1.Post)("admin/donations/:id/schedule-collection"),
     (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
     (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
@@ -342,6 +486,88 @@ __decorate([
     __metadata("design:paramtypes", [String, ecosystem_record_dto_1.EcosystemRecordDto, Object]),
     __metadata("design:returntype", Promise)
 ], EcosystemController.prototype, "scheduleCollection", null);
+__decorate([
+    (0, common_1.Get)("admin/support"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "listSupport", null);
+__decorate([
+    (0, common_1.Post)("admin/support"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [ecosystem_record_dto_1.EcosystemRecordDto, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "createSupport", null);
+__decorate([
+    (0, common_1.Get)("admin/support/:id"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "getSupport", null);
+__decorate([
+    (0, common_1.Patch)("admin/support/:id"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, ecosystem_record_dto_1.EcosystemRecordDto, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "updateSupport", null);
+__decorate([
+    (0, common_1.Post)("admin/support/:id/assign"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, ecosystem_record_dto_1.EcosystemRecordDto, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "assignSupport", null);
+__decorate([
+    (0, common_1.Post)("admin/support/:id/escalate"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, ecosystem_record_dto_1.EcosystemRecordDto, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "escalateSupport", null);
+__decorate([
+    (0, common_1.Post)("admin/support/:id/close"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, ecosystem_record_dto_1.EcosystemRecordDto, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "closeSupport", null);
+__decorate([
+    (0, common_1.Post)("admin/support/:id/link-record"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, ecosystem_record_dto_1.EcosystemRecordDto, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "linkSupportRecord", null);
 __decorate([
     (0, common_1.Get)("admin/support-tickets"),
     (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
@@ -360,6 +586,15 @@ __decorate([
     __metadata("design:paramtypes", [ecosystem_record_dto_1.EcosystemRecordDto, Object]),
     __metadata("design:returntype", Promise)
 ], EcosystemController.prototype, "createSupportTicket", null);
+__decorate([
+    (0, common_1.Get)("admin/support-tickets/:id"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "getSupportTicket", null);
 __decorate([
     (0, common_1.Patch)("admin/support-tickets/:id"),
     (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
@@ -619,6 +854,16 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], EcosystemController.prototype, "seedSuccessStories", null);
 __decorate([
+    (0, common_1.Post)("admin/success-stories/ai-draft"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [ecosystem_record_dto_1.EcosystemRecordDto, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "generateSuccessStoryDraft", null);
+__decorate([
     (0, common_1.Patch)("admin/success-stories/:id"),
     (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
     (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
@@ -629,6 +874,16 @@ __decorate([
     __metadata("design:paramtypes", [String, ecosystem_record_dto_1.EcosystemRecordDto, Object]),
     __metadata("design:returntype", Promise)
 ], EcosystemController.prototype, "updateSuccessStory", null);
+__decorate([
+    (0, common_1.Delete)("admin/success-stories/:id"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "deleteSuccessStory", null);
 __decorate([
     (0, common_1.Post)("admin/success-stories/:id/publish"),
     (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
@@ -650,6 +905,16 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], EcosystemController.prototype, "unpublishSuccessStory", null);
 __decorate([
+    (0, common_1.Post)("admin/success-stories/:id/feature"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "featureSuccessStory", null);
+__decorate([
     (0, common_1.Get)("admin/training-cohorts"),
     (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
     (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
@@ -667,6 +932,66 @@ __decorate([
     __metadata("design:paramtypes", [ecosystem_record_dto_1.EcosystemRecordDto, Object]),
     __metadata("design:returntype", Promise)
 ], EcosystemController.prototype, "createTrainingCohort", null);
+__decorate([
+    (0, common_1.Post)("admin/training-cohorts/:id/import-learners"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)("file")),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.UploadedFile)()),
+    __param(2, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "importTrainingLearners", null);
+__decorate([
+    (0, common_1.Post)("admin/training-cohorts/:id/generate-certificates"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "generateTrainingCertificates", null);
+__decorate([
+    (0, common_1.Post)("admin/training-cohorts/:id/mark-active"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "markTrainingCohortActive", null);
+__decorate([
+    (0, common_1.Post)("admin/training-cohorts/:id/complete"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "completeTrainingCohort", null);
+__decorate([
+    (0, common_1.Get)("admin/training-cohorts/:id/export-register"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "exportTrainingRegister", null);
+__decorate([
+    (0, common_1.Get)("admin/training-cohorts/:id"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "getTrainingCohort", null);
 __decorate([
     (0, common_1.Patch)("admin/training-cohorts/:id"),
     (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
@@ -706,6 +1031,33 @@ __decorate([
     __metadata("design:paramtypes", [ecosystem_record_dto_1.EcosystemRecordDto, Object]),
     __metadata("design:returntype", Promise)
 ], EcosystemController.prototype, "generateSustainabilityReport", null);
+__decorate([
+    (0, common_1.Get)("admin/sustainability-reports/:id/export/pdf"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "exportSustainabilityReportPdf", null);
+__decorate([
+    (0, common_1.Get)("admin/sustainability-reports/:id/export/csv"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "exportSustainabilityReportCsv", null);
+__decorate([
+    (0, common_1.Get)("admin/sustainability-reports/:id"),
+    (0, common_1.UseGuards)(firebase_auth_guard_1.FirebaseAuthGuard, admin_role_guard_1.AdminRoleGuard),
+    (0, admin_roles_decorator_1.AdminRoles)(...adminRoles),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], EcosystemController.prototype, "getSustainabilityReport", null);
 exports.EcosystemController = EcosystemController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [ecosystem_service_1.EcosystemService])

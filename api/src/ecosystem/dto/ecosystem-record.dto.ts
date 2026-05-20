@@ -52,6 +52,11 @@ export class EcosystemRecordDto {
 
   @IsOptional()
   @IsString()
+  @Length(0, 180)
+  subject?: string;
+
+  @IsOptional()
+  @IsString()
   @Length(0, 120)
   region?: string;
 
@@ -89,6 +94,11 @@ export class EcosystemRecordDto {
   @IsString()
   @Length(0, 120)
   resourceType?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  role?: string;
 
   @IsOptional()
   @IsString()
@@ -137,6 +147,15 @@ export class EcosystemRecordDto {
 
   @IsOptional()
   @IsString()
+  @Length(0, 5000)
+  internalNote?: string;
+
+  @IsOptional()
+  @IsArray()
+  internalNoteLog?: unknown[];
+
+  @IsOptional()
+  @IsString()
   @Length(0, 80)
   workspace?: string;
 
@@ -170,6 +189,14 @@ export class EcosystemRecordDto {
   inventoryIds?: unknown[];
 
   @IsOptional()
+  @IsArray()
+  dataSources?: unknown[];
+
+  @IsOptional()
+  @IsArray()
+  outputFormats?: unknown[];
+
+  @IsOptional()
   @IsObject()
   metadata?: Record<string, unknown>;
 
@@ -195,6 +222,10 @@ export class EcosystemRecordDto {
 
   @IsOptional()
   @IsObject()
+  artifacts?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsObject()
   diagnostics?: Record<string, unknown>;
 
   @IsOptional()
@@ -202,8 +233,16 @@ export class EcosystemRecordDto {
   aiTriage?: Record<string, unknown>;
 
   @IsOptional()
+  @IsObject()
+  aiRecommendation?: Record<string, unknown>;
+
+  @IsOptional()
   @IsArray()
   diagnosticChecklist?: unknown[];
+
+  @IsOptional()
+  @IsArray()
+  secureWipeChecklist?: unknown[];
 
   @IsOptional()
   @IsArray()
@@ -212,6 +251,14 @@ export class EcosystemRecordDto {
   @IsOptional()
   @IsArray()
   timeline?: unknown[];
+
+  @IsOptional()
+  @IsArray()
+  chainOfCustodyLog?: unknown[];
+
+  @IsOptional()
+  @IsArray()
+  reportPacks?: unknown[];
 
   @IsOptional()
   @IsArray()
@@ -227,8 +274,104 @@ export class EcosystemRecordDto {
   visualAsset?: string;
 
   @IsOptional()
+  @IsString()
+  @Length(0, 180)
+  slug?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 80)
+  type?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 80)
+  storyType?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 180)
+  beneficiaryName?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 12000)
+  body?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 12000)
+  fullStory?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 1000)
+  quote?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 2500)
+  beforeSituation?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 2500)
+  afterImpact?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  devicesProvided?: number;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 180)
+  trainingLinked?: string;
+
+  @IsOptional()
+  @IsArray()
+  skillsGained?: unknown[];
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 1000)
+  outcome?: string;
+
+  @IsOptional()
+  @IsArray()
+  mediaUrls?: unknown[];
+
+  @IsOptional()
+  @IsBoolean()
+  featured?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  consentConfirmed?: boolean;
+
+  @IsOptional()
   @IsBoolean()
   published?: boolean;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  deviceDonationId?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  trainingCohortId?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  beneficiaryType?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 80)
+  tone?: string;
 
   @IsOptional()
   @IsBoolean()
@@ -266,8 +409,99 @@ export class EcosystemRecordDto {
 
   @IsOptional()
   @IsString()
+  @Length(0, 120)
+  programmeType?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  audience?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 180)
+  hubOrSchool?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 80)
+  deliveryMode?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 80)
+  startDate?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 80)
+  endDate?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 180)
+  trainer?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 180)
+  sponsor?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 180)
+  linkedDeviceBatchId?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  certificationEnabled?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  attendanceTrackingEnabled?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  trainerApprovalComplete?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  sponsorReportReady?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  certificateTemplateSelected?: boolean;
+
+  @IsOptional()
+  @IsArray()
+  learnerRegister?: unknown[];
+
+  @IsOptional()
+  @IsArray()
+  certificationChecklist?: unknown[];
+
+  @IsOptional()
+  @IsObject()
+  certificateArtifacts?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsArray()
+  learningOutcomes?: unknown[];
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 5000)
+  trainerNotes?: string;
+
+  @IsOptional()
+  @IsString()
   @Length(0, 160)
   customerName?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  requesterName?: string;
 
   @IsOptional()
   @IsString()
@@ -281,8 +515,18 @@ export class EcosystemRecordDto {
 
   @IsOptional()
   @IsString()
+  @Length(0, 160)
+  requesterEmail?: string;
+
+  @IsOptional()
+  @IsString()
   @Length(0, 80)
   phone?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 80)
+  requesterPhone?: string;
 
   @IsOptional()
   @IsString()
@@ -492,7 +736,17 @@ export class EcosystemRecordDto {
   @IsOptional()
   @IsString()
   @Length(0, 160)
+  linkedInventoryId?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
   deploymentId?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  linkedDeploymentId?: string;
 
   @IsOptional()
   @IsString()
@@ -502,7 +756,62 @@ export class EcosystemRecordDto {
   @IsOptional()
   @IsString()
   @Length(0, 160)
+  linkedDonationId?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  linkedRepairTicketId?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  repairTicketId?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
   assignedTechnicianId?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 180)
+  assignedTo?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  supportReference?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  reference?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 80)
+  slaTarget?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 80)
+  slaDueAt?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 80)
+  lastActivityAt?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  linkRecordType?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  linkRecordId?: string;
 
   @IsOptional()
   @IsArray()
@@ -543,7 +852,22 @@ export class EcosystemRecordDto {
   @IsOptional()
   @IsString()
   @Length(0, 120)
+  collectionRoute?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
   collectionWindow?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  contactPerson?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  donorOrganisation?: string;
 
   @IsOptional()
   @IsString()
@@ -554,6 +878,69 @@ export class EcosystemRecordDto {
   @IsString()
   @Length(0, 120)
   processingStage?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 80)
+  recyclingReference?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  recyclingPartnerId?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  partnerName?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  driverStatus?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  logisticsStatus?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  secureWipeStatus?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  wipeCertificateStatus?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  assignedTechnician?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  reuseRecycleDecision?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  deviceCondition?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 240)
+  africaDeploymentSuitability?: string;
+
+  @IsOptional()
+  @IsArray()
+  assetTypes?: unknown[];
+
+  @IsOptional()
+  @IsArray()
+  complianceDocuments?: unknown[];
 
   @IsOptional()
   @IsString()
@@ -586,6 +973,26 @@ export class EcosystemRecordDto {
   estimatedCo2SavedKg?: number;
 
   @IsOptional()
+  @IsNumber()
+  @Min(0)
+  estimatedCo2KgAvoided?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  estimatedWeightKg?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  refurbishmentCostEstimate?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  partsValueEstimate?: number;
+
+  @IsOptional()
   @IsInt()
   @Min(0)
   devicesDiverted?: number;
@@ -593,7 +1000,71 @@ export class EcosystemRecordDto {
   @IsOptional()
   @IsInt()
   @Min(0)
+  deviceQuantity?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  devicesIncluded?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  devicesReused?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  devicesRecycled?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  dataBearingDeviceCount?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  dataBearingDevicesCount?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
   deviceCount?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  targetLearners?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  enrolledLearners?: number;
+
+  @IsOptional()
+  @IsBoolean()
+  chainOfCustodyRequired?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  secureWipeRequired?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  esgReportRequired?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  generateEstimatedCo2Impact?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  generateReuseEvidence?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  generateDonorReadySummary?: boolean;
 
   @IsOptional()
   @IsInt()
@@ -632,10 +1103,71 @@ export class EcosystemRecordDto {
   workload?: number;
 
   @IsOptional()
+  @IsInt()
+  @Min(0)
+  activeJobs?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  completedJobs?: number;
+
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  slaRisk?: number;
+
+  @IsOptional()
   @IsNumber()
   @Min(0)
   @Max(100)
   completionRate?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  attendanceRate?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  certificationReadiness?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  co2AvoidedKg?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  co2EstimatedKg?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  reuseRate?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  recyclingRate?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  evidenceReadiness?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(5)
+  rating?: number;
 
   @IsOptional()
   @IsNumber()

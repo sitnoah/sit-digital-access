@@ -1,5 +1,5 @@
-import { AdminStoriesOperationalPage } from "@/components/admin/operations/admin-operations-pages";
+import { AdminSuccessStoriesWorkspace } from "@/components/admin/admin-success-stories-workspace";
 
 export default function AdminSuccessStoriesPage() {
-  return <AdminStoriesOperationalPage />;
+  return <AdminSuccessStoriesWorkspace />;
 }

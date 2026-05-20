@@ -19,6 +19,7 @@ class EcosystemRecordDto {
     status;
     priority;
     category;
+    subject;
     region;
     country;
     location;
@@ -27,6 +28,7 @@ class EcosystemRecordDto {
     sourceType;
     sourceId;
     resourceType;
+    role;
     resourceId;
     linkedResourceType;
     linkedResourceId;
@@ -36,6 +38,8 @@ class EcosystemRecordDto {
     message;
     notes;
     internalNotes;
+    internalNote;
+    internalNoteLog;
     workspace;
     viewKey;
     filters;
@@ -44,21 +48,48 @@ class EcosystemRecordDto {
     metrics;
     steps;
     inventoryIds;
+    dataSources;
+    outputFormats;
     metadata;
     payload;
     quoteDraft;
     reservationPlan;
     reportPayload;
     reportData;
+    artifacts;
     diagnostics;
     aiTriage;
+    aiRecommendation;
     diagnosticChecklist;
+    secureWipeChecklist;
     attachments;
     timeline;
+    chainOfCustodyLog;
+    reportPacks;
     customerCommunication;
     requiredPartIds;
     visualAsset;
+    slug;
+    type;
+    storyType;
+    beneficiaryName;
+    body;
+    fullStory;
+    quote;
+    beforeSituation;
+    afterImpact;
+    devicesProvided;
+    trainingLinked;
+    skillsGained;
+    outcome;
+    mediaUrls;
+    featured;
+    consentConfirmed;
     published;
+    deviceDonationId;
+    trainingCohortId;
+    beneficiaryType;
+    tone;
     read;
     deliveryStatus;
     provider;
@@ -66,10 +97,32 @@ class EcosystemRecordDto {
     cohortName;
     trainingPathway;
     certificationTarget;
+    programmeType;
+    audience;
+    hubOrSchool;
+    deliveryMode;
+    startDate;
+    endDate;
+    trainer;
+    sponsor;
+    linkedDeviceBatchId;
+    certificationEnabled;
+    attendanceTrackingEnabled;
+    trainerApprovalComplete;
+    sponsorReportReady;
+    certificateTemplateSelected;
+    learnerRegister;
+    certificationChecklist;
+    certificateArtifacts;
+    learningOutcomes;
+    trainerNotes;
     customerName;
+    requesterName;
     organisation;
     email;
+    requesterEmail;
     phone;
+    requesterPhone;
     deviceType;
     brand;
     model;
@@ -113,9 +166,22 @@ class EcosystemRecordDto {
     donationId;
     enquiryId;
     inventoryId;
+    linkedInventoryId;
     deploymentId;
+    linkedDeploymentId;
     recyclingId;
+    linkedDonationId;
+    linkedRepairTicketId;
+    repairTicketId;
     assignedTechnicianId;
+    assignedTo;
+    supportReference;
+    reference;
+    slaTarget;
+    slaDueAt;
+    lastActivityAt;
+    linkRecordType;
+    linkRecordId;
     partsRequired;
     sku;
     supplier;
@@ -124,17 +190,51 @@ class EcosystemRecordDto {
     certifications;
     availability;
     collectionDate;
+    collectionRoute;
     collectionWindow;
+    contactPerson;
+    donorOrganisation;
     pickupLocation;
     processingStage;
+    recyclingReference;
+    recyclingPartnerId;
+    partnerName;
+    driverStatus;
+    logisticsStatus;
+    secureWipeStatus;
+    wipeCertificateStatus;
+    assignedTechnician;
+    reuseRecycleDecision;
+    deviceCondition;
+    africaDeploymentSuitability;
+    assetTypes;
+    complianceDocuments;
     powerProfile;
     connectivityProfile;
     logisticsPlan;
     fulfilmentPlan;
     localPartner;
     estimatedCo2SavedKg;
+    estimatedCo2KgAvoided;
+    estimatedWeightKg;
+    refurbishmentCostEstimate;
+    partsValueEstimate;
     devicesDiverted;
+    deviceQuantity;
+    devicesIncluded;
+    devicesReused;
+    devicesRecycled;
+    dataBearingDeviceCount;
+    dataBearingDevicesCount;
     deviceCount;
+    targetLearners;
+    enrolledLearners;
+    chainOfCustodyRequired;
+    secureWipeRequired;
+    esgReportRequired;
+    generateEstimatedCo2Impact;
+    generateReuseEvidence;
+    generateDonorReadySummary;
     learnerCount;
     readinessScore;
     attempts;
@@ -142,7 +242,18 @@ class EcosystemRecordDto {
     quantityAvailable;
     reorderLevel;
     workload;
+    activeJobs;
+    completedJobs;
+    slaRisk;
     completionRate;
+    attendanceRate;
+    certificationReadiness;
+    co2AvoidedKg;
+    co2EstimatedKg;
+    reuseRate;
+    recyclingRate;
+    evidenceReadiness;
+    rating;
     estimatedUnitPrice;
     lastError;
     dueDate;
@@ -196,6 +307,12 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 180),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "subject", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(0, 120),
     __metadata("design:type", String)
 ], EcosystemRecordDto.prototype, "region", void 0);
@@ -241,6 +358,12 @@ __decorate([
     (0, class_validator_1.Length)(0, 120),
     __metadata("design:type", String)
 ], EcosystemRecordDto.prototype, "resourceType", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 120),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "role", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -298,6 +421,17 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 5000),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "internalNote", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "internalNoteLog", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(0, 80),
     __metadata("design:type", String)
 ], EcosystemRecordDto.prototype, "workspace", void 0);
@@ -339,6 +473,16 @@ __decorate([
 ], EcosystemRecordDto.prototype, "inventoryIds", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "dataSources", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "outputFormats", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsObject)(),
     __metadata("design:type", Object)
 ], EcosystemRecordDto.prototype, "metadata", void 0);
@@ -371,6 +515,11 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsObject)(),
     __metadata("design:type", Object)
+], EcosystemRecordDto.prototype, "artifacts", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", Object)
 ], EcosystemRecordDto.prototype, "diagnostics", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
@@ -379,9 +528,19 @@ __decorate([
 ], EcosystemRecordDto.prototype, "aiTriage", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", Object)
+], EcosystemRecordDto.prototype, "aiRecommendation", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], EcosystemRecordDto.prototype, "diagnosticChecklist", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "secureWipeChecklist", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
@@ -392,6 +551,16 @@ __decorate([
     (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], EcosystemRecordDto.prototype, "timeline", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "chainOfCustodyLog", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "reportPacks", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
@@ -410,9 +579,125 @@ __decorate([
 ], EcosystemRecordDto.prototype, "visualAsset", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 180),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "slug", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 80),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "type", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 80),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "storyType", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 180),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "beneficiaryName", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 12000),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "body", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 12000),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "fullStory", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 1000),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "quote", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 2500),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "beforeSituation", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 2500),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "afterImpact", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "devicesProvided", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 180),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "trainingLinked", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "skillsGained", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 1000),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "outcome", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "mediaUrls", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "featured", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "consentConfirmed", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], EcosystemRecordDto.prototype, "published", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "deviceDonationId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "trainingCohortId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 120),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "beneficiaryType", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 80),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "tone", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsBoolean)(),
@@ -457,9 +742,120 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 120),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "programmeType", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "audience", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 180),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "hubOrSchool", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 80),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "deliveryMode", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 80),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "startDate", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 80),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "endDate", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 180),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "trainer", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 180),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "sponsor", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 180),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "linkedDeviceBatchId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "certificationEnabled", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "attendanceTrackingEnabled", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "trainerApprovalComplete", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "sponsorReportReady", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "certificateTemplateSelected", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "learnerRegister", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "certificationChecklist", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", Object)
+], EcosystemRecordDto.prototype, "certificateArtifacts", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "learningOutcomes", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 5000),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "trainerNotes", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(0, 160),
     __metadata("design:type", String)
 ], EcosystemRecordDto.prototype, "customerName", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "requesterName", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -475,9 +871,21 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "requesterEmail", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(0, 80),
     __metadata("design:type", String)
 ], EcosystemRecordDto.prototype, "phone", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 80),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "requesterPhone", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -731,7 +1139,19 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(0, 160),
     __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "linkedInventoryId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
 ], EcosystemRecordDto.prototype, "deploymentId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "linkedDeploymentId", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -743,7 +1163,73 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(0, 160),
     __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "linkedDonationId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "linkedRepairTicketId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "repairTicketId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
 ], EcosystemRecordDto.prototype, "assignedTechnicianId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 180),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "assignedTo", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 120),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "supportReference", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 120),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "reference", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 80),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "slaTarget", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 80),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "slaDueAt", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 80),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "lastActivityAt", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "linkRecordType", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "linkRecordId", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsArray)(),
@@ -793,7 +1279,25 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.Length)(0, 120),
     __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "collectionRoute", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 120),
+    __metadata("design:type", String)
 ], EcosystemRecordDto.prototype, "collectionWindow", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 120),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "contactPerson", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "donorOrganisation", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -806,6 +1310,82 @@ __decorate([
     (0, class_validator_1.Length)(0, 120),
     __metadata("design:type", String)
 ], EcosystemRecordDto.prototype, "processingStage", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 80),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "recyclingReference", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "recyclingPartnerId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "partnerName", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 120),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "driverStatus", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 120),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "logisticsStatus", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 120),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "secureWipeStatus", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 120),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "wipeCertificateStatus", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "assignedTechnician", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "reuseRecycleDecision", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 160),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "deviceCondition", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Length)(0, 240),
+    __metadata("design:type", String)
+], EcosystemRecordDto.prototype, "africaDeploymentSuitability", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "assetTypes", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], EcosystemRecordDto.prototype, "complianceDocuments", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -844,6 +1424,30 @@ __decorate([
 ], EcosystemRecordDto.prototype, "estimatedCo2SavedKg", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "estimatedCo2KgAvoided", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "estimatedWeightKg", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "refurbishmentCostEstimate", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "partsValueEstimate", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsInt)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
@@ -853,7 +1457,85 @@ __decorate([
     (0, class_validator_1.IsInt)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "deviceQuantity", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "devicesIncluded", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "devicesReused", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "devicesRecycled", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "dataBearingDeviceCount", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "dataBearingDevicesCount", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
 ], EcosystemRecordDto.prototype, "deviceCount", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "targetLearners", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "enrolledLearners", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "chainOfCustodyRequired", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "secureWipeRequired", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "esgReportRequired", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "generateEstimatedCo2Impact", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "generateReuseEvidence", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], EcosystemRecordDto.prototype, "generateDonorReadySummary", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsInt)(),
@@ -899,11 +1581,83 @@ __decorate([
 ], EcosystemRecordDto.prototype, "workload", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "activeJobs", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "completedJobs", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "slaRisk", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     (0, class_validator_1.Max)(100),
     __metadata("design:type", Number)
 ], EcosystemRecordDto.prototype, "completionRate", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(100),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "attendanceRate", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(100),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "certificationReadiness", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "co2AvoidedKg", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "co2EstimatedKg", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(100),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "reuseRate", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(100),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "recyclingRate", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(100),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "evidenceReadiness", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(5),
+    __metadata("design:type", Number)
+], EcosystemRecordDto.prototype, "rating", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),

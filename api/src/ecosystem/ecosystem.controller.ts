@@ -7,7 +7,7 @@ import type { AuthenticatedRequest } from "../common/types";
 import { EcosystemRecordDto } from "./dto/ecosystem-record.dto";
 import { EcosystemService } from "./ecosystem.service";
 
-type UploadedRepairFile = {
+type UploadedAdminFile = {
   buffer: Buffer;
   originalname: string;
   mimetype: string;
@@ -108,21 +108,64 @@ export class EcosystemController {
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async listRecycling() {
-    return { data: await this.ecosystemService.list("recycling") };
+    return { data: await this.ecosystemService.listRecyclingOperations() };
   }
 
   @Post("admin/recycling")
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async createRecycling(@Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
-    return { data: await this.ecosystemService.create("recycling", dto, request) };
+    return { data: await this.ecosystemService.createRecyclingRecord(dto, request) };
   }
 
   @Patch("admin/recycling/:id")
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async updateRecycling(@Param("id") id: string, @Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
-    return { data: await this.ecosystemService.update("recycling", id, dto, request) };
+    return { data: await this.ecosystemService.updateRecyclingRecord(id, dto, request) };
+  }
+
+  @Post("admin/recycling/:id/attachments")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  @UseInterceptors(FileInterceptor("file"))
+  async uploadRecyclingAttachment(@Param("id") id: string, @UploadedFile() file: UploadedAdminFile, @Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.uploadRecyclingAttachment(id, file, dto, request) };
+  }
+
+  @Post("admin/recycling/:id/recommendation")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async recommendRecyclingRoute(@Param("id") id: string, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.recommendRecyclingRoute(id, request) };
+  }
+
+  @Post("admin/recycling/:id/report-pack")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async generateRecyclingReportPack(@Param("id") id: string, @Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.generateRecyclingReportPack(id, dto, request) };
+  }
+
+  @Get("admin/recycling-partners")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async listRecyclingPartners() {
+    return { data: await this.ecosystemService.list("recyclingPartners") };
+  }
+
+  @Post("admin/recycling-partners")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async createRecyclingPartner(@Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.create("recyclingPartners", dto, request) };
+  }
+
+  @Patch("admin/recycling-partners/:id")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async updateRecyclingPartner(@Param("id") id: string, @Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.update("recyclingPartners", id, dto, request) };
   }
 
   @Post("admin/donations/:id/schedule-collection")
@@ -132,25 +175,88 @@ export class EcosystemController {
     return { data: await this.ecosystemService.scheduleCollection(id, dto, request) };
   }
 
+  @Get("admin/support")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async listSupport() {
+    return { data: await this.ecosystemService.listSupportOperations() };
+  }
+
+  @Post("admin/support")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async createSupport(@Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.createSupportTicketRecord(dto, request) };
+  }
+
+  @Get("admin/support/:id")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async getSupport(@Param("id") id: string) {
+    return { data: await this.ecosystemService.getSupportTicket(id) };
+  }
+
+  @Patch("admin/support/:id")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async updateSupport(@Param("id") id: string, @Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.updateSupportTicketRecord(id, dto, request) };
+  }
+
+  @Post("admin/support/:id/assign")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async assignSupport(@Param("id") id: string, @Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.assignSupportTicket(id, dto, request) };
+  }
+
+  @Post("admin/support/:id/escalate")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async escalateSupport(@Param("id") id: string, @Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.escalateSupportTicket(id, dto, request) };
+  }
+
+  @Post("admin/support/:id/close")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async closeSupport(@Param("id") id: string, @Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.closeSupportTicket(id, dto, request) };
+  }
+
+  @Post("admin/support/:id/link-record")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async linkSupportRecord(@Param("id") id: string, @Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.linkSupportRecord(id, dto, request) };
+  }
+
   @Get("admin/support-tickets")
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async listSupportTickets() {
-    return { data: await this.ecosystemService.list("supportTickets") };
+    return { data: await this.ecosystemService.listSupportOperations() };
   }
 
   @Post("admin/support-tickets")
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async createSupportTicket(@Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
-    return { data: await this.ecosystemService.create("supportTickets", dto, request) };
+    return { data: await this.ecosystemService.createSupportTicketRecord(dto, request) };
+  }
+
+  @Get("admin/support-tickets/:id")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async getSupportTicket(@Param("id") id: string) {
+    return { data: await this.ecosystemService.getSupportTicket(id) };
   }
 
   @Patch("admin/support-tickets/:id")
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async updateSupportTicket(@Param("id") id: string, @Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
-    return { data: await this.ecosystemService.update("supportTickets", id, dto, request) };
+    return { data: await this.ecosystemService.updateSupportTicketRecord(id, dto, request) };
   }
 
   @Post("admin/inventory/:id/support-ticket")
@@ -185,7 +291,7 @@ export class EcosystemController {
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   @UseInterceptors(FileInterceptor("file"))
-  async uploadRepairAttachment(@Param("id") id: string, @UploadedFile() file: UploadedRepairFile, @Req() request: AuthenticatedRequest) {
+  async uploadRepairAttachment(@Param("id") id: string, @UploadedFile() file: UploadedAdminFile, @Req() request: AuthenticatedRequest) {
     return { data: await this.ecosystemService.uploadRepairAttachment(id, file, request) };
   }
 
@@ -312,14 +418,14 @@ export class EcosystemController {
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async listSuccessStories() {
-    return { data: await this.ecosystemService.list("successStories") };
+    return { data: await this.ecosystemService.listSuccessStoryOperations() };
   }
 
   @Post("admin/success-stories")
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async createSuccessStory(@Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
-    return { data: await this.ecosystemService.create("successStories", dto, request) };
+    return { data: await this.ecosystemService.createSuccessStoryRecord(dto, request) };
   }
 
   @Post("admin/success-stories/seed")
@@ -329,11 +435,25 @@ export class EcosystemController {
     return { data: await this.ecosystemService.seedDefaultStories(request) };
   }
 
+  @Post("admin/success-stories/ai-draft")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async generateSuccessStoryDraft(@Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.generateSuccessStoryDraft(dto, request) };
+  }
+
   @Patch("admin/success-stories/:id")
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async updateSuccessStory(@Param("id") id: string, @Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
-    return { data: await this.ecosystemService.update("successStories", id, dto, request) };
+    return { data: await this.ecosystemService.updateSuccessStoryRecord(id, dto, request) };
+  }
+
+  @Delete("admin/success-stories/:id")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async deleteSuccessStory(@Param("id") id: string, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.deleteSuccessStory(id, request) };
   }
 
   @Post("admin/success-stories/:id/publish")
@@ -350,32 +470,82 @@ export class EcosystemController {
     return { data: await this.ecosystemService.publishStory(id, false, request) };
   }
 
+  @Post("admin/success-stories/:id/feature")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async featureSuccessStory(@Param("id") id: string, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.featureStory(id, true, request) };
+  }
+
   @Get("admin/training-cohorts")
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async listTrainingCohorts() {
-    return { data: await this.ecosystemService.list("trainingCohorts") };
+    return { data: await this.ecosystemService.listTrainingCohortOperations() };
   }
 
   @Post("admin/training-cohorts")
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async createTrainingCohort(@Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
-    return { data: await this.ecosystemService.create("trainingCohorts", dto, request) };
+    return { data: await this.ecosystemService.createTrainingCohortRecord(dto, request) };
+  }
+
+  @Post("admin/training-cohorts/:id/import-learners")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  @UseInterceptors(FileInterceptor("file"))
+  async importTrainingLearners(@Param("id") id: string, @UploadedFile() file: UploadedAdminFile, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.importTrainingLearners(id, file, request) };
+  }
+
+  @Post("admin/training-cohorts/:id/generate-certificates")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async generateTrainingCertificates(@Param("id") id: string, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.generateTrainingCertificates(id, request) };
+  }
+
+  @Post("admin/training-cohorts/:id/mark-active")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async markTrainingCohortActive(@Param("id") id: string, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.markTrainingCohortActive(id, request) };
+  }
+
+  @Post("admin/training-cohorts/:id/complete")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async completeTrainingCohort(@Param("id") id: string, @Req() request: AuthenticatedRequest) {
+    return { data: await this.ecosystemService.completeTrainingCohort(id, request) };
+  }
+
+  @Get("admin/training-cohorts/:id/export-register")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async exportTrainingRegister(@Param("id") id: string) {
+    return { data: await this.ecosystemService.exportTrainingRegister(id) };
+  }
+
+  @Get("admin/training-cohorts/:id")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async getTrainingCohort(@Param("id") id: string) {
+    return { data: await this.ecosystemService.getTrainingCohort(id) };
   }
 
   @Patch("admin/training-cohorts/:id")
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async updateTrainingCohort(@Param("id") id: string, @Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
-    return { data: await this.ecosystemService.update("trainingCohorts", id, dto, request) };
+    return { data: await this.ecosystemService.updateTrainingCohortRecord(id, dto, request) };
   }
 
   @Get("admin/sustainability-reports")
   @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
   @AdminRoles(...adminRoles)
   async listSustainabilityReports() {
-    return { data: await this.ecosystemService.list("sustainabilityReports") };
+    return { data: await this.ecosystemService.listSustainabilityReportOperations() };
   }
 
   @Post("admin/sustainability-reports")
@@ -390,5 +560,26 @@ export class EcosystemController {
   @AdminRoles(...adminRoles)
   async generateSustainabilityReport(@Body() dto: EcosystemRecordDto, @Req() request: AuthenticatedRequest) {
     return { data: await this.ecosystemService.generateSustainabilityReport(dto, request) };
+  }
+
+  @Get("admin/sustainability-reports/:id/export/pdf")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async exportSustainabilityReportPdf(@Param("id") id: string) {
+    return { data: await this.ecosystemService.exportSustainabilityReport(id, "pdf") };
+  }
+
+  @Get("admin/sustainability-reports/:id/export/csv")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async exportSustainabilityReportCsv(@Param("id") id: string) {
+    return { data: await this.ecosystemService.exportSustainabilityReport(id, "csv") };
+  }
+
+  @Get("admin/sustainability-reports/:id")
+  @UseGuards(FirebaseAuthGuard, AdminRoleGuard)
+  @AdminRoles(...adminRoles)
+  async getSustainabilityReport(@Param("id") id: string) {
+    return { data: await this.ecosystemService.getSustainabilityReport(id) };
   }
 }

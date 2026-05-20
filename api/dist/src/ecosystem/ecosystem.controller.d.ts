@@ -1,7 +1,7 @@
 import type { AuthenticatedRequest } from "../common/types";
 import { EcosystemRecordDto } from "./dto/ecosystem-record.dto";
 import { EcosystemService } from "./ecosystem.service";
-type UploadedRepairFile = {
+type UploadedAdminFile = {
     buffer: Buffer;
     originalname: string;
     mimetype: string;
@@ -11,9 +11,29 @@ export declare class EcosystemController {
     private readonly ecosystemService;
     constructor(ecosystemService: EcosystemService);
     publicStories(): Promise<{
-        data: (Record<string, unknown> & {
+        data: {
+            title: string;
+            name: string;
+            slug: string;
+            type: string;
+            storyType: string;
+            category: {};
+            status: string;
+            published: boolean;
+            summary: {};
+            body: string;
+            fullStory: {};
+            devicesProvided: number;
+            deviceCount: {};
+            mediaUrls: string[];
+            visualAsset: {};
+            tags: string[];
+            skillsGained: string[];
+            featured: boolean;
+            consentConfirmed: boolean;
+            updatedAt: {} | null;
             id: string;
-        })[];
+        }[];
     }>;
     publicSustainabilitySummary(): Promise<{
         data: {
@@ -97,7 +117,7 @@ export declare class EcosystemController {
         data: {
             id: string;
             recordId: string;
-            type: "Enquiry" | "Device request" | "Donation" | "Inventory" | "Deployment" | "Recycling" | "Support" | "Repair" | "Repair part" | "Repair technician" | "Success story" | "Training cohort" | "Notification";
+            type: "Enquiry" | "Device request" | "Donation" | "Inventory" | "Deployment" | "Recycling" | "Recycling partner" | "Support" | "Repair" | "Repair part" | "Repair technician" | "Success story" | "Training cohort" | "Notification";
             title: string;
             summary: string;
             status: {} | null;
@@ -128,7 +148,21 @@ export declare class EcosystemController {
         };
     }>;
     listRecycling(): Promise<{
-        data: unknown[];
+        data: {
+            records: (Record<string, unknown> & {
+                id: string;
+            })[];
+            summary: {
+                totalRecords: number;
+                devicesDiverted: number;
+                estimatedCo2KgAvoided: number;
+                processing: number;
+                secureWipePending: number;
+                esgEvidenceReady: number;
+                overdueCollections: number;
+                partnersActive: number;
+            };
+        };
     }>;
     createRecycling(dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
         data: Record<string, unknown> & {
@@ -136,6 +170,34 @@ export declare class EcosystemController {
         };
     }>;
     updateRecycling(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
+        data: Record<string, unknown> & {
+            id: string;
+        };
+    }>;
+    uploadRecyclingAttachment(id: string, file: UploadedAdminFile, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
+        data: Record<string, unknown> & {
+            id: string;
+        };
+    }>;
+    recommendRecyclingRoute(id: string, request: AuthenticatedRequest): Promise<{
+        data: Record<string, unknown> & {
+            id: string;
+        };
+    }>;
+    generateRecyclingReportPack(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
+        data: Record<string, unknown> & {
+            id: string;
+        };
+    }>;
+    listRecyclingPartners(): Promise<{
+        data: unknown[];
+    }>;
+    createRecyclingPartner(dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
+        data: Record<string, unknown> & {
+            id: string;
+        };
+    }>;
+    updateRecyclingPartner(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
         data: unknown;
     }>;
     scheduleCollection(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
@@ -143,19 +205,612 @@ export declare class EcosystemController {
             id: string;
         };
     }>;
+    listSupport(): Promise<{
+        data: {
+            tickets: {
+                reference: string;
+                supportReference: string;
+                subject: string;
+                title: string;
+                name: string;
+                requesterName: string;
+                customerName: {};
+                requesterEmail: string | null;
+                email: {} | null;
+                requesterPhone: string | null;
+                phone: {} | null;
+                category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+                channel: string;
+                description: string;
+                summary: {};
+                message: {};
+                internalNotes: {
+                    id: string;
+                    note: string;
+                    createdAt: string;
+                    author: string | null;
+                }[];
+                internalNoteLog: {
+                    id: string;
+                    note: string;
+                    createdAt: string;
+                    author: string | null;
+                }[];
+                assignedTo: string | null;
+                assignedOwner: {} | null;
+                linkedInventoryId: {} | null;
+                linkedRepairTicketId: {} | null;
+                linkedDonationId: {} | null;
+                linkedDeploymentId: {} | null;
+                slaDueAt: {};
+                lastActivityAt: {} | null;
+                timeline: unknown[];
+                attachments: unknown[];
+                id: string;
+            }[];
+            summary: {
+                openTickets: number;
+                highPriority: number;
+                inventoryLinked: number;
+                repairLinked: number;
+                closedTickets: number;
+                slaRisk: number;
+                awaitingCustomer: number;
+                escalated: number;
+            };
+        };
+    }>;
+    createSupport(dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
+        data: {
+            reference: string;
+            supportReference: string;
+            subject: string;
+            title: string;
+            name: string;
+            requesterName: string;
+            customerName: {};
+            requesterEmail: string | null;
+            email: {} | null;
+            requesterPhone: string | null;
+            phone: {} | null;
+            category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+            priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+            status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+            channel: string;
+            description: string;
+            summary: {};
+            message: {};
+            internalNotes: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            internalNoteLog: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            assignedTo: string | null;
+            assignedOwner: {} | null;
+            linkedInventoryId: {} | null;
+            linkedRepairTicketId: {} | null;
+            linkedDonationId: {} | null;
+            linkedDeploymentId: {} | null;
+            slaDueAt: {};
+            lastActivityAt: {} | null;
+            timeline: unknown[];
+            attachments: unknown[];
+            id: string;
+        };
+    }>;
+    getSupport(id: string): Promise<{
+        data: {
+            reference: string;
+            supportReference: string;
+            subject: string;
+            title: string;
+            name: string;
+            requesterName: string;
+            customerName: {};
+            requesterEmail: string | null;
+            email: {} | null;
+            requesterPhone: string | null;
+            phone: {} | null;
+            category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+            priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+            status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+            channel: string;
+            description: string;
+            summary: {};
+            message: {};
+            internalNotes: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            internalNoteLog: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            assignedTo: string | null;
+            assignedOwner: {} | null;
+            linkedInventoryId: {} | null;
+            linkedRepairTicketId: {} | null;
+            linkedDonationId: {} | null;
+            linkedDeploymentId: {} | null;
+            slaDueAt: {};
+            lastActivityAt: {} | null;
+            timeline: unknown[];
+            attachments: unknown[];
+            id: string;
+        };
+    }>;
+    updateSupport(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
+        data: {
+            reference: string;
+            supportReference: string;
+            subject: string;
+            title: string;
+            name: string;
+            requesterName: string;
+            customerName: {};
+            requesterEmail: string | null;
+            email: {} | null;
+            requesterPhone: string | null;
+            phone: {} | null;
+            category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+            priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+            status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+            channel: string;
+            description: string;
+            summary: {};
+            message: {};
+            internalNotes: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            internalNoteLog: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            assignedTo: string | null;
+            assignedOwner: {} | null;
+            linkedInventoryId: {} | null;
+            linkedRepairTicketId: {} | null;
+            linkedDonationId: {} | null;
+            linkedDeploymentId: {} | null;
+            slaDueAt: {};
+            lastActivityAt: {} | null;
+            timeline: unknown[];
+            attachments: unknown[];
+            id: string;
+        };
+    }>;
+    assignSupport(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
+        data: {
+            reference: string;
+            supportReference: string;
+            subject: string;
+            title: string;
+            name: string;
+            requesterName: string;
+            customerName: {};
+            requesterEmail: string | null;
+            email: {} | null;
+            requesterPhone: string | null;
+            phone: {} | null;
+            category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+            priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+            status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+            channel: string;
+            description: string;
+            summary: {};
+            message: {};
+            internalNotes: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            internalNoteLog: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            assignedTo: string | null;
+            assignedOwner: {} | null;
+            linkedInventoryId: {} | null;
+            linkedRepairTicketId: {} | null;
+            linkedDonationId: {} | null;
+            linkedDeploymentId: {} | null;
+            slaDueAt: {};
+            lastActivityAt: {} | null;
+            timeline: unknown[];
+            attachments: unknown[];
+            id: string;
+        };
+    }>;
+    escalateSupport(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
+        data: {
+            reference: string;
+            supportReference: string;
+            subject: string;
+            title: string;
+            name: string;
+            requesterName: string;
+            customerName: {};
+            requesterEmail: string | null;
+            email: {} | null;
+            requesterPhone: string | null;
+            phone: {} | null;
+            category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+            priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+            status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+            channel: string;
+            description: string;
+            summary: {};
+            message: {};
+            internalNotes: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            internalNoteLog: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            assignedTo: string | null;
+            assignedOwner: {} | null;
+            linkedInventoryId: {} | null;
+            linkedRepairTicketId: {} | null;
+            linkedDonationId: {} | null;
+            linkedDeploymentId: {} | null;
+            slaDueAt: {};
+            lastActivityAt: {} | null;
+            timeline: unknown[];
+            attachments: unknown[];
+            id: string;
+        };
+    }>;
+    closeSupport(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
+        data: {
+            reference: string;
+            supportReference: string;
+            subject: string;
+            title: string;
+            name: string;
+            requesterName: string;
+            customerName: {};
+            requesterEmail: string | null;
+            email: {} | null;
+            requesterPhone: string | null;
+            phone: {} | null;
+            category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+            priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+            status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+            channel: string;
+            description: string;
+            summary: {};
+            message: {};
+            internalNotes: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            internalNoteLog: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            assignedTo: string | null;
+            assignedOwner: {} | null;
+            linkedInventoryId: {} | null;
+            linkedRepairTicketId: {} | null;
+            linkedDonationId: {} | null;
+            linkedDeploymentId: {} | null;
+            slaDueAt: {};
+            lastActivityAt: {} | null;
+            timeline: unknown[];
+            attachments: unknown[];
+            id: string;
+        };
+    }>;
+    linkSupportRecord(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
+        data: {
+            reference: string;
+            supportReference: string;
+            subject: string;
+            title: string;
+            name: string;
+            requesterName: string;
+            customerName: {};
+            requesterEmail: string | null;
+            email: {} | null;
+            requesterPhone: string | null;
+            phone: {} | null;
+            category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+            priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+            status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+            channel: string;
+            description: string;
+            summary: {};
+            message: {};
+            internalNotes: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            internalNoteLog: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            assignedTo: string | null;
+            assignedOwner: {} | null;
+            linkedInventoryId: {} | null;
+            linkedRepairTicketId: {} | null;
+            linkedDonationId: {} | null;
+            linkedDeploymentId: {} | null;
+            slaDueAt: {};
+            lastActivityAt: {} | null;
+            timeline: unknown[];
+            attachments: unknown[];
+            id: string;
+        };
+    }>;
     listSupportTickets(): Promise<{
-        data: unknown[];
+        data: {
+            tickets: {
+                reference: string;
+                supportReference: string;
+                subject: string;
+                title: string;
+                name: string;
+                requesterName: string;
+                customerName: {};
+                requesterEmail: string | null;
+                email: {} | null;
+                requesterPhone: string | null;
+                phone: {} | null;
+                category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+                channel: string;
+                description: string;
+                summary: {};
+                message: {};
+                internalNotes: {
+                    id: string;
+                    note: string;
+                    createdAt: string;
+                    author: string | null;
+                }[];
+                internalNoteLog: {
+                    id: string;
+                    note: string;
+                    createdAt: string;
+                    author: string | null;
+                }[];
+                assignedTo: string | null;
+                assignedOwner: {} | null;
+                linkedInventoryId: {} | null;
+                linkedRepairTicketId: {} | null;
+                linkedDonationId: {} | null;
+                linkedDeploymentId: {} | null;
+                slaDueAt: {};
+                lastActivityAt: {} | null;
+                timeline: unknown[];
+                attachments: unknown[];
+                id: string;
+            }[];
+            summary: {
+                openTickets: number;
+                highPriority: number;
+                inventoryLinked: number;
+                repairLinked: number;
+                closedTickets: number;
+                slaRisk: number;
+                awaitingCustomer: number;
+                escalated: number;
+            };
+        };
     }>;
     createSupportTicket(dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
-        data: Record<string, unknown> & {
+        data: {
+            reference: string;
+            supportReference: string;
+            subject: string;
+            title: string;
+            name: string;
+            requesterName: string;
+            customerName: {};
+            requesterEmail: string | null;
+            email: {} | null;
+            requesterPhone: string | null;
+            phone: {} | null;
+            category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+            priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+            status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+            channel: string;
+            description: string;
+            summary: {};
+            message: {};
+            internalNotes: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            internalNoteLog: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            assignedTo: string | null;
+            assignedOwner: {} | null;
+            linkedInventoryId: {} | null;
+            linkedRepairTicketId: {} | null;
+            linkedDonationId: {} | null;
+            linkedDeploymentId: {} | null;
+            slaDueAt: {};
+            lastActivityAt: {} | null;
+            timeline: unknown[];
+            attachments: unknown[];
+            id: string;
+        };
+    }>;
+    getSupportTicket(id: string): Promise<{
+        data: {
+            reference: string;
+            supportReference: string;
+            subject: string;
+            title: string;
+            name: string;
+            requesterName: string;
+            customerName: {};
+            requesterEmail: string | null;
+            email: {} | null;
+            requesterPhone: string | null;
+            phone: {} | null;
+            category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+            priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+            status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+            channel: string;
+            description: string;
+            summary: {};
+            message: {};
+            internalNotes: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            internalNoteLog: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            assignedTo: string | null;
+            assignedOwner: {} | null;
+            linkedInventoryId: {} | null;
+            linkedRepairTicketId: {} | null;
+            linkedDonationId: {} | null;
+            linkedDeploymentId: {} | null;
+            slaDueAt: {};
+            lastActivityAt: {} | null;
+            timeline: unknown[];
+            attachments: unknown[];
             id: string;
         };
     }>;
     updateSupportTicket(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
-        data: unknown;
+        data: {
+            reference: string;
+            supportReference: string;
+            subject: string;
+            title: string;
+            name: string;
+            requesterName: string;
+            customerName: {};
+            requesterEmail: string | null;
+            email: {} | null;
+            requesterPhone: string | null;
+            phone: {} | null;
+            category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+            priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+            status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+            channel: string;
+            description: string;
+            summary: {};
+            message: {};
+            internalNotes: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            internalNoteLog: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            assignedTo: string | null;
+            assignedOwner: {} | null;
+            linkedInventoryId: {} | null;
+            linkedRepairTicketId: {} | null;
+            linkedDonationId: {} | null;
+            linkedDeploymentId: {} | null;
+            slaDueAt: {};
+            lastActivityAt: {} | null;
+            timeline: unknown[];
+            attachments: unknown[];
+            id: string;
+        };
     }>;
     createSupportTicketFromInventory(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
-        data: Record<string, unknown> & {
+        data: {
+            reference: string;
+            supportReference: string;
+            subject: string;
+            title: string;
+            name: string;
+            requesterName: string;
+            customerName: {};
+            requesterEmail: string | null;
+            email: {} | null;
+            requesterPhone: string | null;
+            phone: {} | null;
+            category: "GENERAL_ENQUIRY" | "DEVICE_REQUEST" | "DONATION_SUPPORT" | "INVENTORY_ISSUE" | "REPAIR_SUPPORT" | "RECYCLING_SUPPORT" | "DEPLOYMENT_SUPPORT" | "TRAINING_SUPPORT" | "ACCOUNT_ACCESS";
+            priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+            status: "NEW" | "CLOSED" | "OPEN" | "AWAITING_CUSTOMER" | "AWAITING_INTERNAL" | "ESCALATED" | "RESOLVED";
+            channel: string;
+            description: string;
+            summary: {};
+            message: {};
+            internalNotes: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            internalNoteLog: {
+                id: string;
+                note: string;
+                createdAt: string;
+                author: string | null;
+            }[];
+            assignedTo: string | null;
+            assignedOwner: {} | null;
+            linkedInventoryId: {} | null;
+            linkedRepairTicketId: {} | null;
+            linkedDonationId: {} | null;
+            linkedDeploymentId: {} | null;
+            slaDueAt: {};
+            lastActivityAt: {} | null;
+            timeline: unknown[];
+            attachments: unknown[];
             id: string;
         };
     }>;
@@ -186,7 +841,7 @@ export declare class EcosystemController {
             id: string;
         };
     }>;
-    uploadRepairAttachment(id: string, file: UploadedRepairFile, request: AuthenticatedRequest): Promise<{
+    uploadRepairAttachment(id: string, file: UploadedAdminFile, request: AuthenticatedRequest): Promise<{
         data: Record<string, unknown> & {
             id: string;
         };
@@ -260,38 +915,452 @@ export declare class EcosystemController {
         };
     }>;
     listSuccessStories(): Promise<{
-        data: unknown[];
+        data: {
+            stories: {
+                title: string;
+                name: string;
+                slug: string;
+                type: string;
+                storyType: string;
+                category: {};
+                status: string;
+                published: boolean;
+                summary: {};
+                body: string;
+                fullStory: {};
+                devicesProvided: number;
+                deviceCount: {};
+                mediaUrls: string[];
+                visualAsset: {};
+                tags: string[];
+                skillsGained: string[];
+                featured: boolean;
+                consentConfirmed: boolean;
+                updatedAt: {} | null;
+                id: string;
+            }[];
+            summary: {
+                totalStories: number;
+                published: number;
+                drafts: number;
+                awaitingReview: number;
+                regionsRepresented: number;
+                featured: number;
+                storiesWithMedia: number;
+                impactMetricsAttached: number;
+            };
+        };
     }>;
     createSuccessStory(dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
-        data: Record<string, unknown> & {
+        data: {
+            title: string;
+            name: string;
+            slug: string;
+            type: string;
+            storyType: string;
+            category: {};
+            status: string;
+            published: boolean;
+            summary: {};
+            body: string;
+            fullStory: {};
+            devicesProvided: number;
+            deviceCount: {};
+            mediaUrls: string[];
+            visualAsset: {};
+            tags: string[];
+            skillsGained: string[];
+            featured: boolean;
+            consentConfirmed: boolean;
+            updatedAt: {} | null;
             id: string;
         };
     }>;
     seedSuccessStories(request: AuthenticatedRequest): Promise<{
-        data: unknown[];
+        data: {
+            title: string;
+            name: string;
+            slug: string;
+            type: string;
+            storyType: string;
+            category: {};
+            status: string;
+            published: boolean;
+            summary: {};
+            body: string;
+            fullStory: {};
+            devicesProvided: number;
+            deviceCount: {};
+            mediaUrls: string[];
+            visualAsset: {};
+            tags: string[];
+            skillsGained: string[];
+            featured: boolean;
+            consentConfirmed: boolean;
+            updatedAt: {} | null;
+            id: string;
+        }[];
+    }>;
+    generateSuccessStoryDraft(dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
+        data: Record<string, unknown> | {
+            title: string;
+            summary: string;
+            body: string;
+            quote: string;
+            socialPost: string;
+            tags: string[];
+            tone: string;
+            provider: string;
+            generatedAt: string;
+        };
     }>;
     updateSuccessStory(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
-        data: unknown;
+        data: {
+            title: string;
+            name: string;
+            slug: string;
+            type: string;
+            storyType: string;
+            category: {};
+            status: string;
+            published: boolean;
+            summary: {};
+            body: string;
+            fullStory: {};
+            devicesProvided: number;
+            deviceCount: {};
+            mediaUrls: string[];
+            visualAsset: {};
+            tags: string[];
+            skillsGained: string[];
+            featured: boolean;
+            consentConfirmed: boolean;
+            updatedAt: {} | null;
+            id: string;
+        };
+    }>;
+    deleteSuccessStory(id: string, request: AuthenticatedRequest): Promise<{
+        data: {
+            id: string;
+            deleted: boolean;
+        };
     }>;
     publishSuccessStory(id: string, request: AuthenticatedRequest): Promise<{
-        data: unknown;
+        data: {
+            title: string;
+            name: string;
+            slug: string;
+            type: string;
+            storyType: string;
+            category: {};
+            status: string;
+            published: boolean;
+            summary: {};
+            body: string;
+            fullStory: {};
+            devicesProvided: number;
+            deviceCount: {};
+            mediaUrls: string[];
+            visualAsset: {};
+            tags: string[];
+            skillsGained: string[];
+            featured: boolean;
+            consentConfirmed: boolean;
+            updatedAt: {} | null;
+            id: string;
+        };
     }>;
     unpublishSuccessStory(id: string, request: AuthenticatedRequest): Promise<{
-        data: unknown;
+        data: {
+            title: string;
+            name: string;
+            slug: string;
+            type: string;
+            storyType: string;
+            category: {};
+            status: string;
+            published: boolean;
+            summary: {};
+            body: string;
+            fullStory: {};
+            devicesProvided: number;
+            deviceCount: {};
+            mediaUrls: string[];
+            visualAsset: {};
+            tags: string[];
+            skillsGained: string[];
+            featured: boolean;
+            consentConfirmed: boolean;
+            updatedAt: {} | null;
+            id: string;
+        };
+    }>;
+    featureSuccessStory(id: string, request: AuthenticatedRequest): Promise<{
+        data: {
+            title: string;
+            name: string;
+            slug: string;
+            type: string;
+            storyType: string;
+            category: {};
+            status: string;
+            published: boolean;
+            summary: {};
+            body: string;
+            fullStory: {};
+            devicesProvided: number;
+            deviceCount: {};
+            mediaUrls: string[];
+            visualAsset: {};
+            tags: string[];
+            skillsGained: string[];
+            featured: boolean;
+            consentConfirmed: boolean;
+            updatedAt: {} | null;
+            id: string;
+        };
     }>;
     listTrainingCohorts(): Promise<{
-        data: unknown[];
+        data: {
+            cohorts: {
+                name: string;
+                title: string;
+                cohortName: string;
+                programmeType: "DIGITAL_LITERACY" | "AI_LITERACY" | "CYBERSECURITY_AWARENESS" | "TEACHER_ENABLEMENT" | "DEVICE_READINESS" | "EMPLOYABILITY_SKILLS" | "REPAIR_TECHNICIAN_TRAINING" | "COMMUNITY_HUB_TRAINING";
+                trainingPathway: {};
+                deliveryMode: string;
+                status: "ACTIVE" | "COMPLETED" | "DRAFT" | "RECRUITING" | "CERTIFICATION_READY" | "ARCHIVED" | "AT_RISK";
+                targetLearners: number;
+                enrolledLearners: number;
+                learnerCount: {};
+                attendanceRate: number;
+                completionRate: number;
+                certificationReadiness: number;
+                certificationChecklist: {};
+                learnerRegister: Record<string, unknown>[];
+                certificationEnabled: boolean;
+                attendanceTrackingEnabled: boolean;
+                owner: {} | null;
+                assignedOwner: {} | null;
+                timeline: unknown[];
+                id: string;
+            }[];
+            summary: {
+                totalCohorts: number;
+                totalLearners: number;
+                activeCohorts: number;
+                certificationReady: number;
+                sponsorFunded: number;
+                schoolsLinked: number;
+                completionRate: number;
+                attendanceRisk: number;
+            };
+        };
     }>;
     createTrainingCohort(dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
-        data: Record<string, unknown> & {
+        data: {
+            name: string;
+            title: string;
+            cohortName: string;
+            programmeType: "DIGITAL_LITERACY" | "AI_LITERACY" | "CYBERSECURITY_AWARENESS" | "TEACHER_ENABLEMENT" | "DEVICE_READINESS" | "EMPLOYABILITY_SKILLS" | "REPAIR_TECHNICIAN_TRAINING" | "COMMUNITY_HUB_TRAINING";
+            trainingPathway: {};
+            deliveryMode: string;
+            status: "ACTIVE" | "COMPLETED" | "DRAFT" | "RECRUITING" | "CERTIFICATION_READY" | "ARCHIVED" | "AT_RISK";
+            targetLearners: number;
+            enrolledLearners: number;
+            learnerCount: {};
+            attendanceRate: number;
+            completionRate: number;
+            certificationReadiness: number;
+            certificationChecklist: {};
+            learnerRegister: Record<string, unknown>[];
+            certificationEnabled: boolean;
+            attendanceTrackingEnabled: boolean;
+            owner: {} | null;
+            assignedOwner: {} | null;
+            timeline: unknown[];
+            id: string;
+        };
+    }>;
+    importTrainingLearners(id: string, file: UploadedAdminFile, request: AuthenticatedRequest): Promise<{
+        data: {
+            name: string;
+            title: string;
+            cohortName: string;
+            programmeType: "DIGITAL_LITERACY" | "AI_LITERACY" | "CYBERSECURITY_AWARENESS" | "TEACHER_ENABLEMENT" | "DEVICE_READINESS" | "EMPLOYABILITY_SKILLS" | "REPAIR_TECHNICIAN_TRAINING" | "COMMUNITY_HUB_TRAINING";
+            trainingPathway: {};
+            deliveryMode: string;
+            status: "ACTIVE" | "COMPLETED" | "DRAFT" | "RECRUITING" | "CERTIFICATION_READY" | "ARCHIVED" | "AT_RISK";
+            targetLearners: number;
+            enrolledLearners: number;
+            learnerCount: {};
+            attendanceRate: number;
+            completionRate: number;
+            certificationReadiness: number;
+            certificationChecklist: {};
+            learnerRegister: Record<string, unknown>[];
+            certificationEnabled: boolean;
+            attendanceTrackingEnabled: boolean;
+            owner: {} | null;
+            assignedOwner: {} | null;
+            timeline: unknown[];
+            id: string;
+        };
+    }>;
+    generateTrainingCertificates(id: string, request: AuthenticatedRequest): Promise<{
+        data: {
+            name: string;
+            title: string;
+            cohortName: string;
+            programmeType: "DIGITAL_LITERACY" | "AI_LITERACY" | "CYBERSECURITY_AWARENESS" | "TEACHER_ENABLEMENT" | "DEVICE_READINESS" | "EMPLOYABILITY_SKILLS" | "REPAIR_TECHNICIAN_TRAINING" | "COMMUNITY_HUB_TRAINING";
+            trainingPathway: {};
+            deliveryMode: string;
+            status: "ACTIVE" | "COMPLETED" | "DRAFT" | "RECRUITING" | "CERTIFICATION_READY" | "ARCHIVED" | "AT_RISK";
+            targetLearners: number;
+            enrolledLearners: number;
+            learnerCount: {};
+            attendanceRate: number;
+            completionRate: number;
+            certificationReadiness: number;
+            certificationChecklist: {};
+            learnerRegister: Record<string, unknown>[];
+            certificationEnabled: boolean;
+            attendanceTrackingEnabled: boolean;
+            owner: {} | null;
+            assignedOwner: {} | null;
+            timeline: unknown[];
+            id: string;
+        };
+    }>;
+    markTrainingCohortActive(id: string, request: AuthenticatedRequest): Promise<{
+        data: {
+            name: string;
+            title: string;
+            cohortName: string;
+            programmeType: "DIGITAL_LITERACY" | "AI_LITERACY" | "CYBERSECURITY_AWARENESS" | "TEACHER_ENABLEMENT" | "DEVICE_READINESS" | "EMPLOYABILITY_SKILLS" | "REPAIR_TECHNICIAN_TRAINING" | "COMMUNITY_HUB_TRAINING";
+            trainingPathway: {};
+            deliveryMode: string;
+            status: "ACTIVE" | "COMPLETED" | "DRAFT" | "RECRUITING" | "CERTIFICATION_READY" | "ARCHIVED" | "AT_RISK";
+            targetLearners: number;
+            enrolledLearners: number;
+            learnerCount: {};
+            attendanceRate: number;
+            completionRate: number;
+            certificationReadiness: number;
+            certificationChecklist: {};
+            learnerRegister: Record<string, unknown>[];
+            certificationEnabled: boolean;
+            attendanceTrackingEnabled: boolean;
+            owner: {} | null;
+            assignedOwner: {} | null;
+            timeline: unknown[];
+            id: string;
+        };
+    }>;
+    completeTrainingCohort(id: string, request: AuthenticatedRequest): Promise<{
+        data: {
+            name: string;
+            title: string;
+            cohortName: string;
+            programmeType: "DIGITAL_LITERACY" | "AI_LITERACY" | "CYBERSECURITY_AWARENESS" | "TEACHER_ENABLEMENT" | "DEVICE_READINESS" | "EMPLOYABILITY_SKILLS" | "REPAIR_TECHNICIAN_TRAINING" | "COMMUNITY_HUB_TRAINING";
+            trainingPathway: {};
+            deliveryMode: string;
+            status: "ACTIVE" | "COMPLETED" | "DRAFT" | "RECRUITING" | "CERTIFICATION_READY" | "ARCHIVED" | "AT_RISK";
+            targetLearners: number;
+            enrolledLearners: number;
+            learnerCount: {};
+            attendanceRate: number;
+            completionRate: number;
+            certificationReadiness: number;
+            certificationChecklist: {};
+            learnerRegister: Record<string, unknown>[];
+            certificationEnabled: boolean;
+            attendanceTrackingEnabled: boolean;
+            owner: {} | null;
+            assignedOwner: {} | null;
+            timeline: unknown[];
+            id: string;
+        };
+    }>;
+    exportTrainingRegister(id: string): Promise<{
+        data: {
+            filename: string;
+            contentType: string;
+            content: string;
+        };
+    }>;
+    getTrainingCohort(id: string): Promise<{
+        data: {
+            name: string;
+            title: string;
+            cohortName: string;
+            programmeType: "DIGITAL_LITERACY" | "AI_LITERACY" | "CYBERSECURITY_AWARENESS" | "TEACHER_ENABLEMENT" | "DEVICE_READINESS" | "EMPLOYABILITY_SKILLS" | "REPAIR_TECHNICIAN_TRAINING" | "COMMUNITY_HUB_TRAINING";
+            trainingPathway: {};
+            deliveryMode: string;
+            status: "ACTIVE" | "COMPLETED" | "DRAFT" | "RECRUITING" | "CERTIFICATION_READY" | "ARCHIVED" | "AT_RISK";
+            targetLearners: number;
+            enrolledLearners: number;
+            learnerCount: {};
+            attendanceRate: number;
+            completionRate: number;
+            certificationReadiness: number;
+            certificationChecklist: {};
+            learnerRegister: Record<string, unknown>[];
+            certificationEnabled: boolean;
+            attendanceTrackingEnabled: boolean;
+            owner: {} | null;
+            assignedOwner: {} | null;
+            timeline: unknown[];
             id: string;
         };
     }>;
     updateTrainingCohort(id: string, dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
-        data: unknown;
+        data: {
+            name: string;
+            title: string;
+            cohortName: string;
+            programmeType: "DIGITAL_LITERACY" | "AI_LITERACY" | "CYBERSECURITY_AWARENESS" | "TEACHER_ENABLEMENT" | "DEVICE_READINESS" | "EMPLOYABILITY_SKILLS" | "REPAIR_TECHNICIAN_TRAINING" | "COMMUNITY_HUB_TRAINING";
+            trainingPathway: {};
+            deliveryMode: string;
+            status: "ACTIVE" | "COMPLETED" | "DRAFT" | "RECRUITING" | "CERTIFICATION_READY" | "ARCHIVED" | "AT_RISK";
+            targetLearners: number;
+            enrolledLearners: number;
+            learnerCount: {};
+            attendanceRate: number;
+            completionRate: number;
+            certificationReadiness: number;
+            certificationChecklist: {};
+            learnerRegister: Record<string, unknown>[];
+            certificationEnabled: boolean;
+            attendanceTrackingEnabled: boolean;
+            owner: {} | null;
+            assignedOwner: {} | null;
+            timeline: unknown[];
+            id: string;
+        };
     }>;
     listSustainabilityReports(): Promise<{
-        data: unknown[];
+        data: {
+            reports: (Record<string, unknown> & {
+                id: string;
+            })[];
+            summary: {
+                totalReports: number;
+                co2EstimatedKg: number;
+                devicesDiverted: number;
+                latestReport: {
+                    id: string;
+                    name: {};
+                    createdAt: {} | null;
+                    status: {} | null;
+                } | null;
+                reuseRate: number;
+                recyclingRate: number;
+                devicesReused: number;
+                devicesRecycled: number;
+                evidenceReadiness: number;
+            };
+        };
     }>;
     createSustainabilityReport(dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
         data: Record<string, unknown> & {
@@ -299,6 +1368,33 @@ export declare class EcosystemController {
         };
     }>;
     generateSustainabilityReport(dto: EcosystemRecordDto, request: AuthenticatedRequest): Promise<{
+        data: Record<string, unknown> & {
+            id: string;
+        };
+    }>;
+    exportSustainabilityReportPdf(id: string): Promise<{
+        data: {
+            available: boolean;
+            format: "pdf" | "csv";
+            filename: {};
+            contentType: {};
+            storagePath: {} | null;
+            downloadUrl: {} | null;
+            message: string;
+        };
+    }>;
+    exportSustainabilityReportCsv(id: string): Promise<{
+        data: {
+            available: boolean;
+            format: "pdf" | "csv";
+            filename: {};
+            contentType: {};
+            storagePath: {} | null;
+            downloadUrl: {} | null;
+            message: string;
+        };
+    }>;
+    getSustainabilityReport(id: string): Promise<{
         data: Record<string, unknown> & {
             id: string;
         };

@@ -1,5 +1,5 @@
-import { AdminSupportOperationalPage } from "@/components/admin/operations/admin-operations-pages";
+import { AdminSupportWorkspace } from "@/components/admin/admin-support-workspace";
 
 export default function AdminSupportPage() {
-  return <AdminSupportOperationalPage />;
+  return <AdminSupportWorkspace />;
 }
