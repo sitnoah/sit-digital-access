@@ -3,6 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/icons";
+import {
+  getAfricaSuitability,
+  getDeliveryEstimate,
+  getPerformanceLevel,
+  getPowerEstimate,
+  getSustainabilityScore
+} from "@/components/devices/device-product-intelligence";
 import { getEstimatedCo2SavedKg, getTrustBadges } from "@/lib/device-trust";
 import type { DeviceProduct } from "@/types/device";
 
@@ -11,13 +18,15 @@ type DeviceListItemProps = {
   selected: boolean;
   compareDisabled: boolean;
   onToggleCompare: (product: DeviceProduct) => void;
+  onQuickPreview: (product: DeviceProduct) => void;
 };
 
 export function DeviceListItem({
   product,
   selected,
   compareDisabled,
-  onToggleCompare
+  onToggleCompare,
+  onQuickPreview
 }: DeviceListItemProps) {
   return (
     <article className="grid gap-5 rounded-lg border border-line bg-white p-4 shadow-card transition hover:-translate-y-0.5 hover:shadow-soft md:grid-cols-[220px_1fr_auto]">
@@ -32,11 +41,17 @@ export function DeviceListItem({
         <h3 className="mt-4 text-xl font-semibold text-ink">{product.name}</h3>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">{product.shortDescription}</p>
         <div className="mt-4 flex flex-wrap gap-2">
-          {[...product.supportIncluded.slice(0, 3), ...getTrustBadges(product).slice(0, 2)].map((item) => (
-            <span key={item} className="rounded-full border border-line bg-paper px-3 py-1 text-xs font-semibold text-muted">
+          {[...product.supportIncluded.slice(0, 3), ...getTrustBadges(product).slice(0, 2)].map((item, index) => (
+            <span key={`${product.slug}-${item}-${index}`} className="rounded-full border border-line bg-paper px-3 py-1 text-xs font-semibold text-muted">
               {item}
             </span>
           ))}
+        </div>
+        <div className="mt-4 grid gap-2 text-xs font-semibold text-muted sm:grid-cols-4">
+          <span className="rounded-lg bg-paper px-3 py-2">Africa: {getAfricaSuitability(product)}</span>
+          <span className="rounded-lg bg-paper px-3 py-2">Power: {getPowerEstimate(product)}</span>
+          <span className="rounded-lg bg-paper px-3 py-2">Sustainability: {getSustainabilityScore(product)}/100</span>
+          <span className="rounded-lg bg-paper px-3 py-2">{getPerformanceLevel(product)}</span>
         </div>
         <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-green-700">
           <Icon name="leaf" className="h-4 w-4" />
@@ -45,6 +60,7 @@ export function DeviceListItem({
       </div>
       <div className="flex flex-col gap-3 md:min-w-44 md:items-end">
         <p className="text-2xl font-semibold text-flame-600">{product.priceLabel}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">{getDeliveryEstimate(product)}</p>
         <label className="flex items-center gap-2 text-sm font-semibold text-muted">
           <input
             type="checkbox"
@@ -55,6 +71,13 @@ export function DeviceListItem({
           />
           Compare
         </label>
+        <button
+          type="button"
+          onClick={() => onQuickPreview(product)}
+          className="inline-flex min-h-10 w-full items-center justify-center rounded-full border border-line bg-white px-4 text-sm font-semibold text-ink transition hover:border-flame-300 hover:text-flame-600 md:w-auto"
+        >
+          Quick preview
+        </button>
         <Link href={`/devices/${product.slug}`} className="inline-flex min-h-10 w-full items-center justify-center rounded-full bg-ink px-4 text-sm font-semibold text-white md:w-auto">
           View details
         </Link>

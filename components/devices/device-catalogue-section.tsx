@@ -9,8 +9,10 @@ import { DeviceFilterSidebar } from "@/components/devices/device-filter-sidebar"
 import { DeviceListItem } from "@/components/devices/device-list-item";
 import { DeviceMobileFilters } from "@/components/devices/device-mobile-filters";
 import { DeviceProductCard } from "@/components/devices/device-product-card";
+import { DeviceQuickPreviewDrawer } from "@/components/devices/device-quick-preview-drawer";
 import { DeviceSearchBar } from "@/components/devices/device-search-bar";
 import { DeviceSortDropdown } from "@/components/devices/device-sort-dropdown";
+import { getSustainabilityScore } from "@/components/devices/device-product-intelligence";
 import { deviceFilterGroups, deviceProducts, emptyDeviceFilters } from "@/lib/device-catalogue";
 import { cn } from "@/lib/utils";
 import type { DeviceFilterState, DeviceProduct, DeviceSortOption, DeviceViewMode } from "@/types/device";
@@ -90,10 +92,13 @@ function filterProducts(products: DeviceProduct[], filters: DeviceFilterState, s
 function sortProducts(products: DeviceProduct[], sort: DeviceSortOption) {
   return [...products].sort((a, b) => {
     if (sort === "Lowest price") return (a.fromPrice ?? 999999) - (b.fromPrice ?? 999999);
-    if (sort === "Highest specification") return (b.performanceScore ?? 0) - (a.performanceScore ?? 0);
-    if (sort === "Best for education") return (b.educationFit ?? 0) - (a.educationFit ?? 0);
+    if (sort === "Best performance") return (b.performanceScore ?? 0) - (a.performanceScore ?? 0);
     if (sort === "Best for Africa deployment") return (b.africaFit ?? 0) - (a.africaFit ?? 0);
-    if (sort === "Low power first") return (b.lowPowerScore ?? 0) - (a.lowPowerScore ?? 0);
+    if (sort === "Lowest power usage") return (b.lowPowerScore ?? 0) - (a.lowPowerScore ?? 0);
+    if (sort === "Most sustainable") return getSustainabilityScore(b) - getSustainabilityScore(a);
+    if (sort === "Best for schools") return (b.educationFit ?? 0) - (a.educationFit ?? 0);
+    if (sort === "Best for NGOs") return Number(b.useCases.includes("NGO")) - Number(a.useCases.includes("NGO")) || (b.africaFit ?? 0) - (a.africaFit ?? 0);
+    if (sort === "Recently added") return deviceProducts.indexOf(b) - deviceProducts.indexOf(a);
     return Number(Boolean(b.featured)) - Number(Boolean(a.featured));
   });
 }
@@ -116,6 +121,29 @@ function filtersFromSearchParams(params: { get: (key: string) => string | null }
   return next;
 }
 
+const deploymentPathways = [
+  {
+    title: "School computer lab",
+    detail: "Classroom bundles, desktops or mini PCs with asset tagging, support and lab setup planning."
+  },
+  {
+    title: "Community digital hub",
+    detail: "Shared-access devices, low-power planning and training handover for hubs and local centres."
+  },
+  {
+    title: "NGO field office",
+    detail: "Business laptops and compact office kits prepared for productivity, lifecycle support and remote teams."
+  },
+  {
+    title: "AI literacy cohort",
+    detail: "Higher-spec laptops or lab bundles aligned to training, digital skills and responsible AI learning."
+  },
+  {
+    title: "Teacher enablement programme",
+    detail: "Education-ready devices with setup, support, content access and classroom deployment guidance."
+  }
+];
+
 export function DeviceCatalogueSection() {
   const searchParams = useSearchParams();
   const [filters, setFilters] = useState<DeviceFilterState>(emptyDeviceFilters);
@@ -125,6 +153,9 @@ export function DeviceCatalogueSection() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [compareOpen, setCompareOpen] = useState(false);
   const [compareSlugs, setCompareSlugs] = useState<string[]>([]);
+  const [deploymentMode, setDeploymentMode] = useState(false);
+  const [savedFilterSet, setSavedFilterSet] = useState(false);
+  const [previewProduct, setPreviewProduct] = useState<DeviceProduct | null>(null);
 
   useEffect(() => {
     setFilters(filtersFromSearchParams(searchParams));
@@ -161,6 +192,21 @@ export function DeviceCatalogueSection() {
     [compareSlugs]
   );
 
+  const catalogueStats = useMemo(
+    () => [
+      { label: "Catalogue options", value: deviceProducts.length.toString() },
+      { label: "Africa-ready", value: deviceProducts.filter((product) => (product.africaFit ?? 0) >= 80).length.toString() },
+      { label: "Low-power fit", value: deviceProducts.filter((product) => (product.lowPowerScore ?? 0) >= 80).length.toString() },
+      { label: "Bundle pathways", value: deviceProducts.filter((product) => product.bundleOptions.length > 0).length.toString() }
+    ],
+    []
+  );
+
+  const shouldShowDeploymentPathways =
+    deploymentMode ||
+    filters.useCases.some((value) => ["Education", "Africa deployment", "Low power", "Digital skills training"].includes(value)) ||
+    filters.deploymentTypes.length > 0;
+
   function handleToggleFilter(group: keyof DeviceFilterState, value: string) {
     setFilters((current) => toggleFilterValue(current, group, value));
   }
@@ -176,6 +222,7 @@ export function DeviceCatalogueSection() {
   function clearFilters() {
     setFilters(emptyDeviceFilters);
     setSearch("");
+    setSavedFilterSet(false);
   }
 
   const activeFilters = selectedFilterLabels(filters);
@@ -186,17 +233,25 @@ export function DeviceCatalogueSection() {
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-flame-600">
-              Device catalogue
+              Device catalogue and deployment planner
             </p>
             <h2 className="mt-4 max-w-4xl text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl">
-              Refurbished devices prepared for classrooms, teams and communities.
+              Marketplace browsing with deployment intelligence built in.
             </h2>
             <p className="mt-5 max-w-3xl text-base leading-7 text-muted">
-              Browse learner laptops, business devices, mini PCs, desktops and full computer
-              lab bundles prepared for practical deployment, supportability and long-term value.
+              Browse learner laptops, business devices, mini PCs, desktops and full computer lab
+              bundles with readiness scores, sustainability cues, support coverage and comparison tools.
             </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {catalogueStats.map((stat) => (
+                <div key={stat.label} className="rounded-lg border border-line bg-paper p-4">
+                  <p className="text-2xl font-semibold text-ink">{stat.value}</p>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-muted">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="rounded-lg border border-line bg-paper p-4">
+          <div className="sticky top-20 z-30 rounded-lg border border-line bg-white/95 p-4 shadow-card backdrop-blur">
             <div className="grid gap-3 md:grid-cols-[1fr_220px]">
               <DeviceSearchBar value={search} onChange={setSearch} />
               <DeviceSortDropdown value={sort} onChange={setSort} />
@@ -223,6 +278,28 @@ export function DeviceCatalogueSection() {
               <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
+                  onClick={() => setDeploymentMode((value) => !value)}
+                  className={cn(
+                    "inline-flex min-h-10 items-center gap-2 rounded-full border px-4 text-sm font-semibold transition",
+                    deploymentMode ? "border-flame-500 bg-flame-500 text-white" : "border-line bg-white text-ink hover:border-flame-300"
+                  )}
+                >
+                  <Icon name="globe" className="h-4 w-4" />
+                  Deployment mode
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSavedFilterSet((value) => !value)}
+                  className={cn(
+                    "inline-flex min-h-10 items-center gap-2 rounded-full border px-4 text-sm font-semibold transition",
+                    savedFilterSet ? "border-green-200 bg-green-50 text-green-700" : "border-line bg-white text-ink hover:border-flame-300"
+                  )}
+                >
+                  <Icon name={savedFilterSet ? "check" : "badge"} className="h-4 w-4" />
+                  {savedFilterSet ? "Saved" : "Save filter set"}
+                </button>
+                <button
+                  type="button"
                   className="inline-flex min-h-10 items-center gap-2 rounded-full border border-line bg-white px-4 text-sm font-semibold text-ink lg:hidden"
                   onClick={() => setMobileFiltersOpen(true)}
                 >
@@ -245,16 +322,39 @@ export function DeviceCatalogueSection() {
                 </button>
               </div>
             </div>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {activeFilters.length > 0 ? (
+                activeFilters.map((filter, index) => (
+                  <span key={`${filter}-${index}`} className="rounded-full border border-flame-200 bg-flame-50 px-3 py-1 text-xs font-semibold text-flame-700">
+                    {filter}
+                  </span>
+                ))
+              ) : (
+                <span className="rounded-full border border-line bg-paper px-3 py-1 text-xs font-semibold text-muted">
+                  No filters selected
+                </span>
+              )}
+            </div>
           </div>
         </div>
 
-        {activeFilters.length > 0 ? (
-          <div className="mt-6 flex flex-wrap gap-2">
-            {activeFilters.map((filter) => (
-              <span key={filter} className="rounded-full border border-flame-200 bg-flame-50 px-3 py-1 text-xs font-semibold text-flame-700">
-                {filter}
-              </span>
-            ))}
+        {shouldShowDeploymentPathways ? (
+          <div className="mt-8 rounded-lg border border-flame-100 bg-flame-50 p-5">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-flame-700">Recommended deployment pathways</p>
+                <h3 className="mt-2 text-xl font-semibold text-ink">Route this catalogue view into a practical deployment model.</h3>
+              </div>
+              <p className="text-sm font-semibold text-flame-800">Education, low-power and Africa-ready signals are being prioritised.</p>
+            </div>
+            <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+              {deploymentPathways.map((pathway) => (
+                <article key={pathway.title} className="rounded-lg bg-white p-4 shadow-sm">
+                  <p className="text-sm font-semibold text-ink">{pathway.title}</p>
+                  <p className="mt-2 text-xs leading-5 text-muted">{pathway.detail}</p>
+                </article>
+              ))}
+            </div>
           </div>
         ) : null}
 
@@ -305,6 +405,7 @@ export function DeviceCatalogueSection() {
                       selected={compareSlugs.includes(product.slug)}
                       compareDisabled={compareSlugs.length >= 3}
                       onToggleCompare={handleToggleCompare}
+                      onQuickPreview={setPreviewProduct}
                     />
                   </motion.div>
                 ))}
@@ -318,12 +419,48 @@ export function DeviceCatalogueSection() {
                     selected={compareSlugs.includes(product.slug)}
                     compareDisabled={compareSlugs.length >= 3}
                     onToggleCompare={handleToggleCompare}
+                    onQuickPreview={setPreviewProduct}
                   />
                 ))}
               </div>
             )}
           </div>
         </div>
+
+        {compareProducts.length > 0 && !compareOpen ? (
+          <div className="fixed inset-x-4 bottom-4 z-[80] mx-auto max-w-5xl rounded-full border border-line bg-white/95 p-3 shadow-soft backdrop-blur">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-ink">
+                <span className="rounded-full bg-ink px-3 py-1 text-xs text-white">Compare tray</span>
+                {compareProducts.map((product) => (
+                  <span key={product.slug} className="rounded-full border border-line bg-paper px-3 py-1 text-xs text-muted">
+                    {product.name}
+                  </span>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setCompareSlugs([])}
+                  className="min-h-10 rounded-full border border-line px-4 text-xs font-semibold text-muted"
+                >
+                  Clear
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCompareOpen(true)}
+                  className="min-h-10 rounded-full bg-flame-500 px-4 text-xs font-semibold text-white"
+                >
+                  Compare {compareProducts.length}
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {previewProduct ? (
+          <DeviceQuickPreviewDrawer product={previewProduct} onClose={() => setPreviewProduct(null)} />
+        ) : null}
 
         <DeviceMobileFilters
           open={mobileFiltersOpen}

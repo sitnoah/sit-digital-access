@@ -2,6 +2,14 @@
 
 import Link from "next/link";
 import { Icon } from "@/components/icons";
+import {
+  getAfricaSuitability,
+  getBulkAvailability,
+  getLifecycleEstimate,
+  getPerformanceLevel,
+  getPowerEstimate,
+  getSustainabilityScore
+} from "@/components/devices/device-product-intelligence";
 import { getEstimatedCo2SavedKg } from "@/lib/device-trust";
 import type { DeviceProduct } from "@/types/device";
 
@@ -74,11 +82,19 @@ export function DeviceCompareDrawer({
                 {[
                   ["Category", (p: DeviceProduct) => p.category],
                   ["Best for", (p: DeviceProduct) => p.bestFor],
-                  ["Specs", (p: DeviceProduct) => p.specifications.map((spec) => spec.value).slice(0, 2).join(" · ")],
+                  ["Processor", (p: DeviceProduct) => p.processorOptions.join(", ")],
+                  ["RAM", (p: DeviceProduct) => p.ramOptions.join(", ")],
+                  ["Storage", (p: DeviceProduct) => p.storageOptions.join(", ")],
+                  ["Performance", (p: DeviceProduct) => getPerformanceLevel(p)],
+                  ["Power usage", (p: DeviceProduct) => getPowerEstimate(p)],
+                  ["Sustainability", (p: DeviceProduct) => `${getSustainabilityScore(p)}/100 · ${getEstimatedCo2SavedKg(p).toLocaleString()}kg estimated CO2 avoided`],
+                  ["Upgradeability", (p: DeviceProduct) => p.includedServices.slice(0, 4).join(", ")],
+                  ["Deployment suitability", (p: DeviceProduct) => `${getAfricaSuitability(p)} Africa suitability · ${p.deploymentTypes.join(", ")}`],
                   ["Condition", (p: DeviceProduct) => p.conditionGrades.join(", ")],
                   ["Support", (p: DeviceProduct) => p.supportIncluded.slice(0, 4).join(", ")],
-                  ["Deployment fit", (p: DeviceProduct) => p.deploymentTypes.join(", ")],
-                  ["Reuse impact", (p: DeviceProduct) => `${getEstimatedCo2SavedKg(p).toLocaleString()}kg estimated CO2 avoided`],
+                  ["Warranty", (p: DeviceProduct) => p.warranty],
+                  ["Estimated lifecycle", (p: DeviceProduct) => getLifecycleEstimate(p)],
+                  ["Bulk readiness", (p: DeviceProduct) => getBulkAvailability(p)],
                   ["Price", (p: DeviceProduct) => p.priceLabel],
                   ["Availability", (p: DeviceProduct) => p.availability]
                 ].map(([label, getter]) => (

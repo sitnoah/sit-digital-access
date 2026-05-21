@@ -5,10 +5,13 @@ export type DeviceAvailability = "Available now" | "Limited stock" | "Quote requ
 export type DeviceSortOption =
   | "Recommended"
   | "Lowest price"
-  | "Highest specification"
-  | "Best for education"
+  | "Best performance"
   | "Best for Africa deployment"
-  | "Low power first";
+  | "Lowest power usage"
+  | "Most sustainable"
+  | "Best for schools"
+  | "Best for NGOs"
+  | "Recently added";
 
 export type DeviceViewMode = "grid" | "list";
 
